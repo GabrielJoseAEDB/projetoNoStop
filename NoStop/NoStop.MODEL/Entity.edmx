@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="noStopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Registro" Type="varchar" MaxLength="50" />
+          <Property Name="IDUsuario" Type="int" Nullable="false" />
+          <Property Name="Role" Type="bit" Nullable="false" />
+          <Property Name="IDEstabelecimento" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estabelecimento">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CNPJ" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Endereco" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fila">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDSetor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FilaCliente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDCliente" Type="int" Nullable="false" />
+          <Property Name="IDFila" Type="int" Nullable="false" />
+          <Property Name="Data" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Setor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDEstabelecimento" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Senha" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CPF" Type="varchar" MaxLength="50" />
+          <Property Name="Telefone" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Cliente_Estabelecimento">
+          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estabelecimento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="IDEstabelecimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="IDUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fila_Setor">
+          <End Role="Setor" Type="Self.Setor" Multiplicity="1" />
+          <End Role="Fila" Type="Self.Fila" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Setor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fila">
+              <PropertyRef Name="IDSetor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilaCliente_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="FilaCliente" Type="Self.FilaCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilaCliente">
+              <PropertyRef Name="IDCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilaCliente_Fila">
+          <End Role="Fila" Type="Self.Fila" Multiplicity="1" />
+          <End Role="FilaCliente" Type="Self.FilaCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fila">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilaCliente">
+              <PropertyRef Name="IDFila" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Setor_Estabelecimento">
+          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="1" />
+          <End Role="Setor" Type="Self.Setor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estabelecimento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Setor">
+              <PropertyRef Name="IDEstabelecimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="noStopModelStoreContainer">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estabelecimento" EntityType="Self.Estabelecimento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fila" EntityType="Self.Fila" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilaCliente" EntityType="Self.FilaCliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Setor" EntityType="Self.Setor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cliente_Estabelecimento" Association="Self.FK_Cliente_Estabelecimento">
+            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Usuario" Association="Self.FK_Cliente_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fila_Setor" Association="Self.FK_Fila_Setor">
+            <End Role="Setor" EntitySet="Setor" />
+            <End Role="Fila" EntitySet="Fila" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilaCliente_Cliente" Association="Self.FK_FilaCliente_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="FilaCliente" EntitySet="FilaCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilaCliente_Fila" Association="Self.FK_FilaCliente_Fila">
+            <End Role="Fila" EntitySet="Fila" />
+            <End Role="FilaCliente" EntitySet="FilaCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Setor_Estabelecimento" Association="Self.FK_Setor_Estabelecimento">
+            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+            <End Role="Setor" EntitySet="Setor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="noStopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Registro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Role" Type="Boolean" Nullable="false" />
+          <Property Name="IDEstabelecimento" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Estabelecimento" Relationship="Self.FK_Cliente_Estabelecimento" FromRole="Cliente" ToRole="Estabelecimento" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Cliente_Usuario" FromRole="Cliente" ToRole="Usuario" />
+          <NavigationProperty Name="FilaCliente" Relationship="Self.FK_FilaCliente_Cliente" FromRole="Cliente" ToRole="FilaCliente" />
+        </EntityType>
+        <EntityType Name="Estabelecimento">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CNPJ" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Endereco" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Estabelecimento" FromRole="Estabelecimento" ToRole="Cliente" />
+          <NavigationProperty Name="Setor" Relationship="Self.FK_Setor_Estabelecimento" FromRole="Estabelecimento" ToRole="Setor" />
+        </EntityType>
+        <EntityType Name="Fila">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDSetor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Setor" Relationship="Self.FK_Fila_Setor" FromRole="Fila" ToRole="Setor" />
+          <NavigationProperty Name="FilaCliente" Relationship="Self.FK_FilaCliente_Fila" FromRole="Fila" ToRole="FilaCliente" />
+        </EntityType>
+        <EntityType Name="FilaCliente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCliente" Type="Int32" Nullable="false" />
+          <Property Name="IDFila" Type="Int32" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_FilaCliente_Cliente" FromRole="FilaCliente" ToRole="Cliente" />
+          <NavigationProperty Name="Fila" Relationship="Self.FK_FilaCliente_Fila" FromRole="FilaCliente" ToRole="Fila" />
+        </EntityType>
+        <EntityType Name="Setor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDEstabelecimento" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Estabelecimento" Relationship="Self.FK_Setor_Estabelecimento" FromRole="Setor" ToRole="Estabelecimento" />
+          <NavigationProperty Name="Fila" Relationship="Self.FK_Fila_Setor" FromRole="Setor" ToRole="Fila" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Senha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CPF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Usuario" FromRole="Usuario" ToRole="Cliente" />
+        </EntityType>
+        <Association Name="FK_Cliente_Estabelecimento">
+          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estabelecimento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="IDEstabelecimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="IDUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilaCliente_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="FilaCliente" Type="Self.FilaCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilaCliente">
+              <PropertyRef Name="IDCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Setor_Estabelecimento">
+          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="1" />
+          <End Role="Setor" Type="Self.Setor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estabelecimento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Setor">
+              <PropertyRef Name="IDEstabelecimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fila_Setor">
+          <End Role="Setor" Type="Self.Setor" Multiplicity="1" />
+          <End Role="Fila" Type="Self.Fila" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Setor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fila">
+              <PropertyRef Name="IDSetor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilaCliente_Fila">
+          <End Role="Fila" Type="Self.Fila" Multiplicity="1" />
+          <End Role="FilaCliente" Type="Self.FilaCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fila">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilaCliente">
+              <PropertyRef Name="IDFila" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="noStopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Estabelecimento" EntityType="Self.Estabelecimento" />
+          <EntitySet Name="Fila" EntityType="Self.Fila" />
+          <EntitySet Name="FilaCliente" EntityType="Self.FilaCliente" />
+          <EntitySet Name="Setor" EntityType="Self.Setor" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Cliente_Estabelecimento" Association="Self.FK_Cliente_Estabelecimento">
+            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Usuario" Association="Self.FK_Cliente_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilaCliente_Cliente" Association="Self.FK_FilaCliente_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="FilaCliente" EntitySet="FilaCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Setor_Estabelecimento" Association="Self.FK_Setor_Estabelecimento">
+            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+            <End Role="Setor" EntitySet="Setor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fila_Setor" Association="Self.FK_Fila_Setor">
+            <End Role="Setor" EntitySet="Setor" />
+            <End Role="Fila" EntitySet="Fila" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilaCliente_Fila" Association="Self.FK_FilaCliente_Fila">
+            <End Role="Fila" EntitySet="Fila" />
+            <End Role="FilaCliente" EntitySet="FilaCliente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="noStopModelStoreContainer" CdmEntityContainer="noStopEntities">
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="noStopModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Registro" ColumnName="Registro" />
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="IDEstabelecimento" ColumnName="IDEstabelecimento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estabelecimento">
+            <EntityTypeMapping TypeName="noStopModel.Estabelecimento">
+              <MappingFragment StoreEntitySet="Estabelecimento">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
+                <ScalarProperty Name="Endereco" ColumnName="Endereco" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fila">
+            <EntityTypeMapping TypeName="noStopModel.Fila">
+              <MappingFragment StoreEntitySet="Fila">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDSetor" ColumnName="IDSetor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FilaCliente">
+            <EntityTypeMapping TypeName="noStopModel.FilaCliente">
+              <MappingFragment StoreEntitySet="FilaCliente">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDCliente" ColumnName="IDCliente" />
+                <ScalarProperty Name="IDFila" ColumnName="IDFila" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Setor">
+            <EntityTypeMapping TypeName="noStopModel.Setor">
+              <MappingFragment StoreEntitySet="Setor">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IDEstabelecimento" ColumnName="IDEstabelecimento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="noStopModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
