@@ -1,0 +1,38 @@
+﻿@model IEnumerable<NoStop.MODEL.ViewModels.ClientePermissoes>
+
+@{
+    ViewBag.Title = "MeusEstabelecimentos";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Role)
+        </td>
+        <td>
+            @Html.ActionLink("Editar o Estabelecimento", "EditarEstabelecimento", new { id = item.IDCliente }) |
+            @Html.ActionLink("Editar acessos", "ExibirClientes", new { id = item.IDEstabelecimento }) |
+        </td>
+    </tr>
+}
+
+</table>

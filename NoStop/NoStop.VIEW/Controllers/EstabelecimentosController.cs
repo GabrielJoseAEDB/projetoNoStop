@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using NoStop.MODEL;
+using NoStop.MODEL.ViewModels;
 
 namespace NoStop.VIEW
 {
@@ -20,6 +21,62 @@ namespace NoStop.VIEW
             return View(db.Estabelecimento.ToList());
         }
 
+        public ActionResult MeusEstabelecimentos()
+        {
+            int idCliente = 1;
+            //Lembrar de colocar o parâmetro para o id do cliente que está acessando
+            List<EstabelecimentoCliente> vwModel = new List<EstabelecimentoCliente>();
+            var joinQuery = (from cli in db.Cliente
+                             join es in db.Estabelecimento
+                             on cli.IDEstabelecimento equals es.ID
+                             where cli.ID == idCliente
+                            select new
+                            {
+                            IdCliente= cli.ID,
+                            idEstabelecimento = es.ID,
+                            NomeEstabelecimento = es.Nome,
+                            Endereco = es.Endereco
+                            }).ToList();
+
+            foreach(var item in joinQuery)
+            {
+                vwModel.Add(new EstabelecimentoCliente()
+                {
+                    IdCliente = item.IdCliente,
+                    idEstabelecimento = item.idEstabelecimento,
+                    NomeEstabelecimento = item.NomeEstabelecimento,
+                    Endereco = item.Endereco
+                });
+            }
+            return View(vwModel);
+        }
+        public ActionResult ExibirClientes()
+        {
+            //Lembrar de colocar o parâmetro para o id do cliente que está acessando
+            List<ClientePermissoes> vwModel = new List<ClientePermissoes>();
+            var joinQuery = (from cli in db.Cliente
+                             join es in db.Estabelecimento
+                             on cli.IDEstabelecimento equals es.ID
+                             select new
+                             {
+                                 IdCliente = cli.ID,
+                                 idEstabelecimento = es.ID,
+                                 NomeCliente = cli.Usuario.Nome,
+                                 Adm = cli.Role
+                             }).ToList();
+
+            foreach (var item in joinQuery)
+            {
+                vwModel.Add(new ClientePermissoes()
+                {
+                    IDCliente = item.IdCliente,
+                    IDEstabelecimento = item.idEstabelecimento,
+                    NomeCliente = item.NomeCliente,
+                    Role = item.Adm
+                });
+            }
+            return View(vwModel);
+        }
         // GET: Estabelecimentos/Details/5
         public ActionResult Details(int? id)
         {
