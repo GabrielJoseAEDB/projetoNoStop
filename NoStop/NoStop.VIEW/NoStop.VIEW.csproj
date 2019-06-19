@@ -154,11 +154,17 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\EstabelecimentosController.cs" />
+    <Compile Include="Controllers\FilaClientesController.cs" />
+    <Compile Include="Controllers\FilasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\SetoresController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -199,6 +205,36 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Clientes\Create.cshtml" />
+    <Content Include="Views\Clientes\Delete.cshtml" />
+    <Content Include="Views\Clientes\Details.cshtml" />
+    <Content Include="Views\Clientes\Edit.cshtml" />
+    <Content Include="Views\Clientes\Index.cshtml" />
+    <Content Include="Views\Usuarios\Create.cshtml" />
+    <Content Include="Views\Usuarios\Delete.cshtml" />
+    <Content Include="Views\Usuarios\Details.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Estabelecimentos\Create.cshtml" />
+    <Content Include="Views\Estabelecimentos\Delete.cshtml" />
+    <Content Include="Views\Estabelecimentos\Details.cshtml" />
+    <Content Include="Views\Estabelecimentos\Edit.cshtml" />
+    <Content Include="Views\Estabelecimentos\Index.cshtml" />
+    <Content Include="Views\Setores\Create.cshtml" />
+    <Content Include="Views\Setores\Delete.cshtml" />
+    <Content Include="Views\Setores\Details.cshtml" />
+    <Content Include="Views\Setores\Edit.cshtml" />
+    <Content Include="Views\Setores\Index.cshtml" />
+    <Content Include="Views\Filas\Create.cshtml" />
+    <Content Include="Views\Filas\Delete.cshtml" />
+    <Content Include="Views\Filas\Details.cshtml" />
+    <Content Include="Views\Filas\Edit.cshtml" />
+    <Content Include="Views\Filas\Index.cshtml" />
+    <Content Include="Views\FilaClientes\Create.cshtml" />
+    <Content Include="Views\FilaClientes\Delete.cshtml" />
+    <Content Include="Views\FilaClientes\Details.cshtml" />
+    <Content Include="Views\FilaClientes\Edit.cshtml" />
+    <Content Include="Views\FilaClientes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -216,6 +252,12 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NoStop.MODEL\NoStop.MODEL.csproj">
+      <Project>{3fffc9d7-73cb-4b1e-9ece-4684a55fa96c}</Project>
+      <Name>NoStop.MODEL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
