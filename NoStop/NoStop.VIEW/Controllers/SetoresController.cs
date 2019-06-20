@@ -15,7 +15,7 @@ namespace NoStop.VIEW
         private noStopEntities db = new noStopEntities();
 
         // GET: Setores
-        public ActionResult Index()
+        public ActionResult Index(int idEstab)
         {
             var setor = db.Setor.Include(s => s.Estabelecimento);
             return View(setor.ToList());

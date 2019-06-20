@@ -12,19 +12,15 @@ namespace NoStop.MODEL
     using System;
     using System.Collections.Generic;
     
-    public partial class Fila
+    public partial class FilaData
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Fila()
-        {
-            this.FilaCliente = new HashSet<FilaCliente>();
-        }
-    
         public int ID { get; set; }
+        public int IDCliente { get; set; }
         public int IDSetor { get; set; }
+        public System.DateTime Data { get; set; }
+        public bool Atendido { get; set; }
     
+        public virtual Cliente Cliente { get; set; }
         public virtual Setor Setor { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FilaCliente> FilaCliente { get; set; }
     }
 }

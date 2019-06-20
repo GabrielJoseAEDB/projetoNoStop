@@ -29,8 +29,9 @@
             @Html.DisplayFor(modelItem => item.Endereco)
         </td>
         <td>
-            @Html.ActionLink("Editar o Estabelecimento", "Edit", new { id = item.idEstabelecimento }) |
-            @Html.ActionLink("Editar acessos", "ExibirClientes", new { id = item.idEstabelecimento }) |
+            @Html.ActionLink("Editar o estabelecimento", "Edit", new { id = item.idEstabelecimento }) |
+            @Html.ActionLink("Editar setores", "Index", "Setores", new { idEstab = item.idEstabelecimento }, null) |
+            @Html.ActionLink("Editar acessos", "ExibirClientes", new { idEstab = item.idEstabelecimento }) |
         </td>
     </tr>
 }

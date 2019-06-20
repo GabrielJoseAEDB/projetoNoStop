@@ -70,10 +70,7 @@
     <Compile Include="Estabelecimento.cs">
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Fila.cs">
-      <DependentUpon>Entity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FilaCliente.cs">
+    <Compile Include="FilaData.cs">
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

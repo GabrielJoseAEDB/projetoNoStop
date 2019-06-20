@@ -10,112 +10,116 @@ using NoStop.MODEL;
 
 namespace NoStop.VIEW
 {
-    public class FilasController : Controller
+    public class FilaDatasController : Controller
     {
         private noStopEntities db = new noStopEntities();
 
-        // GET: Filas
+        // GET: FilaDatas
         public ActionResult Index()
         {
-            var fila = db.Fila.Include(f => f.Setor);
-            return View(fila.ToList());
+            var filaData = db.FilaData.Include(f => f.Cliente).Include(f => f.Setor);
+            return View(filaData.ToList());
         }
 
-        // GET: Filas/Details/5
+        // GET: FilaDatas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Fila fila = db.Fila.Find(id);
-            if (fila == null)
+            FilaData filaData = db.FilaData.Find(id);
+            if (filaData == null)
             {
                 return HttpNotFound();
             }
-            return View(fila);
+            return View(filaData);
         }
 
-        // GET: Filas/Create
+        // GET: FilaDatas/Create
         public ActionResult Create()
         {
+            ViewBag.IDCliente = new SelectList(db.Cliente, "ID", "Registro");
             ViewBag.IDSetor = new SelectList(db.Setor, "ID", "Nome");
             return View();
         }
 
-        // POST: Filas/Create
+        // POST: FilaDatas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,IDSetor")] Fila fila)
+        public ActionResult Create([Bind(Include = "ID,IDCliente,IDSetor,Data")] FilaData filaData)
         {
             if (ModelState.IsValid)
             {
-                db.Fila.Add(fila);
+                db.FilaData.Add(filaData);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IDSetor = new SelectList(db.Setor, "ID", "Nome", fila.IDSetor);
-            return View(fila);
+            ViewBag.IDCliente = new SelectList(db.Cliente, "ID", "Registro", filaData.IDCliente);
+            ViewBag.IDSetor = new SelectList(db.Setor, "ID", "Nome", filaData.IDSetor);
+            return View(filaData);
         }
 
-        // GET: Filas/Edit/5
+        // GET: FilaDatas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Fila fila = db.Fila.Find(id);
-            if (fila == null)
+            FilaData filaData = db.FilaData.Find(id);
+            if (filaData == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IDSetor = new SelectList(db.Setor, "ID", "Nome", fila.IDSetor);
-            return View(fila);
+            ViewBag.IDCliente = new SelectList(db.Cliente, "ID", "Registro", filaData.IDCliente);
+            ViewBag.IDSetor = new SelectList(db.Setor, "ID", "Nome", filaData.IDSetor);
+            return View(filaData);
         }
 
-        // POST: Filas/Edit/5
+        // POST: FilaDatas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,IDSetor")] Fila fila)
+        public ActionResult Edit([Bind(Include = "ID,IDCliente,IDSetor,Data")] FilaData filaData)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(fila).State = EntityState.Modified;
+                db.Entry(filaData).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDSetor = new SelectList(db.Setor, "ID", "Nome", fila.IDSetor);
-            return View(fila);
+            ViewBag.IDCliente = new SelectList(db.Cliente, "ID", "Registro", filaData.IDCliente);
+            ViewBag.IDSetor = new SelectList(db.Setor, "ID", "Nome", filaData.IDSetor);
+            return View(filaData);
         }
 
-        // GET: Filas/Delete/5
+        // GET: FilaDatas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Fila fila = db.Fila.Find(id);
-            if (fila == null)
+            FilaData filaData = db.FilaData.Find(id);
+            if (filaData == null)
             {
                 return HttpNotFound();
             }
-            return View(fila);
+            return View(filaData);
         }
 
-        // POST: Filas/Delete/5
+        // POST: FilaDatas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Fila fila = db.Fila.Find(id);
-            db.Fila.Remove(fila);
+            FilaData filaData = db.FilaData.Find(id);
+            db.FilaData.Remove(filaData);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

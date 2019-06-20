@@ -157,8 +157,7 @@
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\EstabelecimentosController.cs" />
-    <Compile Include="Controllers\FilaClientesController.cs" />
-    <Compile Include="Controllers\FilasController.cs" />
+    <Compile Include="Controllers\FilaDatasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -225,18 +224,13 @@
     <Content Include="Views\Setores\Details.cshtml" />
     <Content Include="Views\Setores\Edit.cshtml" />
     <Content Include="Views\Setores\Index.cshtml" />
-    <Content Include="Views\Filas\Create.cshtml" />
-    <Content Include="Views\Filas\Delete.cshtml" />
-    <Content Include="Views\Filas\Details.cshtml" />
-    <Content Include="Views\Filas\Edit.cshtml" />
-    <Content Include="Views\Filas\Index.cshtml" />
-    <Content Include="Views\FilaClientes\Create.cshtml" />
-    <Content Include="Views\FilaClientes\Delete.cshtml" />
-    <Content Include="Views\FilaClientes\Details.cshtml" />
-    <Content Include="Views\FilaClientes\Edit.cshtml" />
-    <Content Include="Views\FilaClientes\Index.cshtml" />
     <Content Include="Views\Estabelecimentos\MeusEstabelecimentos.cshtml" />
     <Content Include="Views\Estabelecimentos\ExibirClientes.cshtml" />
+    <Content Include="Views\FilaDatas\Create.cshtml" />
+    <Content Include="Views\FilaDatas\Delete.cshtml" />
+    <Content Include="Views\FilaDatas\Details.cshtml" />
+    <Content Include="Views\FilaDatas\Edit.cshtml" />
+    <Content Include="Views\FilaDatas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

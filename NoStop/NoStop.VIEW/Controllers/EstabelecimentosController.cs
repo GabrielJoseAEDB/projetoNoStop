@@ -50,13 +50,18 @@ namespace NoStop.VIEW
             }
             return View(vwModel);
         }
-        public ActionResult ExibirClientes()
+        public ActionResult ExibirClientes(int? idEstab)
         {
+            if (idEstab == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             //Lembrar de colocar o parâmetro para o id do cliente que está acessando
             List<ClientePermissoes> vwModel = new List<ClientePermissoes>();
             var joinQuery = (from cli in db.Cliente
                              join es in db.Estabelecimento
                              on cli.IDEstabelecimento equals es.ID
+                             where cli.IDEstabelecimento == idEstab
                              select new
                              {
                                  IdCliente = cli.ID,
@@ -64,7 +69,10 @@ namespace NoStop.VIEW
                                  NomeCliente = cli.Usuario.Nome,
                                  Adm = cli.Role
                              }).ToList();
-
+            if (joinQuery == null)
+            {
+                return HttpNotFound();
+            }
             foreach (var item in joinQuery)
             {
                 vwModel.Add(new ClientePermissoes()
@@ -89,6 +97,7 @@ namespace NoStop.VIEW
             {
                 return HttpNotFound();
             }
+
             return View(estabelecimento);
         }
 

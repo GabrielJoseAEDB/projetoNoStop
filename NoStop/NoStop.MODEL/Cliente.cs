@@ -17,7 +17,7 @@ namespace NoStop.MODEL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cliente()
         {
-            this.FilaCliente = new HashSet<FilaCliente>();
+            this.FilaData = new HashSet<FilaData>();
         }
     
         public int ID { get; set; }
@@ -29,6 +29,6 @@ namespace NoStop.MODEL
         public virtual Estabelecimento Estabelecimento { get; set; }
         public virtual Usuario Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FilaCliente> FilaCliente { get; set; }
+        public virtual ICollection<FilaData> FilaData { get; set; }
     }
 }
