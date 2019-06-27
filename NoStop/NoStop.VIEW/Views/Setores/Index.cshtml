@@ -29,9 +29,12 @@
             @Html.DisplayFor(modelItem => item.Estabelecimento.Nome)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+           @if(1==0){
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            }
+
         </td>
     </tr>
 }

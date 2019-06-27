@@ -20,6 +20,16 @@ namespace NoStop.VIEW
             var filaData = db.FilaData.Include(f => f.Cliente).Include(f => f.Setor);
             return View(filaData.ToList());
         }
+        public ActionResult FilaCliente()
+        {
+            var filaData = db.FilaData.Include(f => f.Cliente).Include(f => f.Setor);
+            return View(filaData.ToList());
+        }
+        public ActionResult FilaAtendente()
+        {
+            var filaData = db.FilaData.Include(f => f.Cliente).Include(f => f.Setor);
+            return View(filaData.ToList());
+        }
 
         // GET: FilaDatas/Details/5
         public ActionResult Details(int? id)

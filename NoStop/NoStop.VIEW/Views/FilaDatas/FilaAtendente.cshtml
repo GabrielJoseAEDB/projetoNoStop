@@ -1,0 +1,27 @@
+﻿@model IEnumerable<NoStop.MODEL.FilaData>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Iniciar nova fila", "Edit", new { id = 1 })
+        </th>
+        <th>
+            @Html.ActionLink("Atender próximo", "Edit", new { id = 1 })
+        </th>
+        <th>
+            Número da fila:
+        </th>
+        <th></th>
+    </tr>
+</table>
+
+

@@ -231,6 +231,8 @@
     <Content Include="Views\FilaDatas\Details.cshtml" />
     <Content Include="Views\FilaDatas\Edit.cshtml" />
     <Content Include="Views\FilaDatas\Index.cshtml" />
+    <Content Include="Views\FilaDatas\FilaAtendente.cshtml" />
+    <Content Include="Views\FilaDatas\FilaCliente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

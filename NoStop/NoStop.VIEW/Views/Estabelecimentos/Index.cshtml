@@ -12,9 +12,6 @@
             @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CNPJ)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Endereco)
         </th>
         <th></th>
@@ -26,15 +23,11 @@
             @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CNPJ)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Endereco)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Exibir filas", "ExibirFilas", new { idEstab=item.ID})
         </td>
     </tr>
 }
