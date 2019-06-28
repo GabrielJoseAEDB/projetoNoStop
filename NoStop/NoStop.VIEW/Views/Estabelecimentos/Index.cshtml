@@ -26,8 +26,8 @@
             @Html.DisplayFor(modelItem => item.Endereco)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Exibir filas", "ExibirFilas", new { idEstab=item.ID})
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Exibir filas", "Index", "Setores", new { idEstab = item.ID }, null) |
         </td>
     </tr>
 }

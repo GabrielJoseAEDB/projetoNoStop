@@ -42,7 +42,7 @@ namespace NoStop.VIEW
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome");
             return View();
         }
-
+        
         // POST: Setores/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

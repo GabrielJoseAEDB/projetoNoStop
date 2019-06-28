@@ -30,7 +30,26 @@ namespace NoStop.VIEW
             var filaData = db.FilaData.Include(f => f.Cliente).Include(f => f.Setor);
             return View(filaData.ToList());
         }
+        //Inserir o Cliente na fila
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(int idSetor, int idCliente)
+        {
+            FilaData filaCliente = new FilaData();
+            filaCliente.IDSetor = idSetor;
+            filaCliente.IDCliente = idCliente;
+            filaCliente.Data = DateTime.Now;
+            filaCliente.Atendido = false;
 
+            if (ModelState.IsValid)
+            {
+                db.FilaData.Add(filaCliente);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
         // GET: FilaDatas/Details/5
         public ActionResult Details(int? id)
         {
@@ -57,7 +76,7 @@ namespace NoStop.VIEW
         // POST: FilaDatas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+       /* [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,IDCliente,IDSetor,Data")] FilaData filaData)
         {
@@ -72,7 +91,7 @@ namespace NoStop.VIEW
             ViewBag.IDSetor = new SelectList(db.Setor, "ID", "Nome", filaData.IDSetor);
             return View(filaData);
         }
-
+        */
         // GET: FilaDatas/Edit/5
         public ActionResult Edit(int? id)
         {
