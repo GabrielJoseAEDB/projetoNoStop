@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using NoStop.MODEL;
+using NoStop.MODEL.ViewModels;
 
 namespace NoStop.VIEW
 {
@@ -20,25 +21,43 @@ namespace NoStop.VIEW
             var filaData = db.FilaData.Include(f => f.Cliente).Include(f => f.Setor);
             return View(filaData.ToList());
         }
-        public ActionResult FilaCliente()
+        public ActionResult FilaCliente(int idSetor)
         {
-            var filaData = db.FilaData.Include(f => f.Cliente).Include(f => f.Setor);
-            return View(filaData.ToList());
+            //Posição na fila
+            int qtdFila = db.FilaData.Where(f => f.IDSetor == idSetor && f.Data == DateTime.Today).Count();
+            int nAtendidos = db.FilaData.Where(f => f.IDSetor == idSetor && f.Data == DateTime.Today && f.Atendido==false).Count();
+            var vwBag = new qtdFila {
+                qtdNaFila = qtdFila,
+            nAtendidos = nAtendidos
+            };
+            ViewBag.vwBag = vwBag;
+            return View();
         }
-        public ActionResult FilaAtendente()
+        public ActionResult FilaAtendente(int idSetor)
         {
-            var filaData = db.FilaData.Include(f => f.Cliente).Include(f => f.Setor);
-            return View(filaData.ToList());
+            //Conta as pessoas na fila no setor e no dia
+            int qtdFila = db.FilaData.Where(f => f.IDSetor == idSetor && f.Data== DateTime.Today).Count();
+            ViewBag.Message = qtdFila.ToString();
+            return View();
+        }
+        public ActionResult ProximoFila(int idSetor)
+        {
+            //Conta as pessoas na fila no setor e no dia
+            var clienteAtendido = db.FilaData.Where(f => f.IDSetor == idSetor && f.Data == DateTime.Today).FirstOrDefault();
+            clienteAtendido.Atendido = true;
+            db.Entry(clienteAtendido).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("FilaAtendente");
         }
         //Inserir o Cliente na fila
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int idSetor, int idCliente)
+        public ActionResult EntraNaFila(int idSetor, int idCliente)
         {
             FilaData filaCliente = new FilaData();
             filaCliente.IDSetor = idSetor;
             filaCliente.IDCliente = idCliente;
-            filaCliente.Data = DateTime.Now;
+            filaCliente.Data = DateTime.Today;
             filaCliente.Atendido = false;
 
             if (ModelState.IsValid)
@@ -76,7 +95,7 @@ namespace NoStop.VIEW
         // POST: FilaDatas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-       /* [HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,IDCliente,IDSetor,Data")] FilaData filaData)
         {
@@ -91,7 +110,7 @@ namespace NoStop.VIEW
             ViewBag.IDSetor = new SelectList(db.Setor, "ID", "Nome", filaData.IDSetor);
             return View(filaData);
         }
-        */
+        
         // GET: FilaDatas/Edit/5
         public ActionResult Edit(int? id)
         {

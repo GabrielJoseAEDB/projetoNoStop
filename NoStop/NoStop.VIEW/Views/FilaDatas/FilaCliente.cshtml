@@ -1,7 +1,10 @@
-﻿@model IEnumerable<NoStop.MODEL.FilaData>
+﻿@model IEnumerable<NoStop.MODEL.ViewModels.qtdFila>
 
 @{
     ViewBag.Title = "Index";
+
+    // Não necessita de TypeCasting
+    var vwBag = ViewBag.vwBag;
 }
 
 <h2>Index</h2>
@@ -12,13 +15,13 @@
 <table class="table">
     <tr>
         <th>
-          
+
         </th>
         <th>
-           Posição na fila: 
+            Posição na fila: @vwBag.qtdNaFila
         </th>
         <th>
-           
+            Clientes na sua frente: @vwBag.nAtendidos
         </th>
         <th></th>
     </tr>

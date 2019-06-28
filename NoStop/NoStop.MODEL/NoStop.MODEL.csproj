@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="ViewModels\ClientePermissoes.cs" />
     <Compile Include="ViewModels\EstabelecimentoCliente.cs" />
+    <Compile Include="ViewModels\qtdFila.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

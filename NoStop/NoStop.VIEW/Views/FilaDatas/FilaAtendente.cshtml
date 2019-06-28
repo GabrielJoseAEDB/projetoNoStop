@@ -1,13 +1,16 @@
-﻿@model IEnumerable<NoStop.MODEL.FilaData>
+﻿@model IEnumerable<String>
 
 @{
     ViewBag.Title = "Index";
 }
-
+@{ 
+    var data = ViewBag.Message;
+}
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    <h3>Id: @data</h3>
 </p>
 <table class="table">
     <tr>
