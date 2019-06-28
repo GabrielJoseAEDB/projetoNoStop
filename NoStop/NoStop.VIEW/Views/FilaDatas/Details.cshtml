@@ -1,0 +1,42 @@
+﻿@model NoStop.MODEL.FilaData
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FilaData</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.Registro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.Registro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Setor.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Setor.Nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

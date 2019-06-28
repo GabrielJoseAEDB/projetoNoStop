@@ -70,10 +70,7 @@
     <Compile Include="Estabelecimento.cs">
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Fila.cs">
-      <DependentUpon>Entity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FilaCliente.cs">
+    <Compile Include="FilaData.cs">
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,6 +80,9 @@
     <Compile Include="Usuario.cs">
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ClientePermissoes.cs" />
+    <Compile Include="ViewModels\EstabelecimentoCliente.cs" />
+    <Compile Include="ViewModels\qtdFila.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

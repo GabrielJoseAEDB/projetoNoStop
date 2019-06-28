@@ -1,0 +1,39 @@
+﻿@model IEnumerable<NoStop.MODEL.ViewModels.EstabelecimentoCliente>
+
+@{
+    ViewBag.Title = "ExibirClientes";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeEstabelecimento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Endereco)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeEstabelecimento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Endereco)
+        </td>
+        <td>
+            @Html.ActionLink("Editar o estabelecimento", "Edit", new { id = item.idEstabelecimento }) |
+            @Html.ActionLink("Editar setores", "Index", "Setores", new { idEstab = item.idEstabelecimento }, null) |
+            @Html.ActionLink("Editar acessos", "ExibirClientes", new { idEstab = item.idEstabelecimento }) |
+        </td>
+    </tr>
+}
+
+</table>

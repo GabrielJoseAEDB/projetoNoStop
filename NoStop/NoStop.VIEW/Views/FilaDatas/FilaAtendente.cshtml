@@ -1,0 +1,30 @@
+﻿@model IEnumerable<String>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{ 
+    var data = ViewBag.Message;
+}
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+    <h3>Id: @data</h3>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Iniciar nova fila", "Edit", new { id = 1 })
+        </th>
+        <th>
+            @Html.ActionLink("Atender próximo", "Edit", new { id = 1 })
+        </th>
+        <th>
+            Número da fila:
+        </th>
+        <th></th>
+    </tr>
+</table>
+
+

@@ -27,9 +27,8 @@ namespace NoStop.MODEL
     
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<Estabelecimento> Estabelecimento { get; set; }
-        public virtual DbSet<Fila> Fila { get; set; }
-        public virtual DbSet<FilaCliente> FilaCliente { get; set; }
         public virtual DbSet<Setor> Setor { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<FilaData> FilaData { get; set; }
     }
 }
