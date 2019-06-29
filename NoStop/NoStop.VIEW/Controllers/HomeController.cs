@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NoStop.MODEL;
 
 namespace NoStop.VIEW.Controllers
 {
@@ -10,7 +11,14 @@ namespace NoStop.VIEW.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (Session["usuarioLogadoID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         public ActionResult About()
@@ -25,6 +33,32 @@ namespace NoStop.VIEW.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(Usuario u)
+        {
+            // esta action trata o post (login)
+            if (ModelState.IsValid) //verifica se é válido
+            {
+                using (noStopEntities dc = new noStopEntities())
+                {
+                    var v = dc.Usuario.Where(a => a.Email.Equals(u.Email) && a.Senha.Equals(u.Senha)).FirstOrDefault();
+                    if (v != null)
+                    {
+                        Session["usuarioLogadoID"] = v.ID.ToString();
+                        Session["nomeUsuarioLogado"] = v.Nome.ToString();
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            return View(u);
         }
     }
 }
