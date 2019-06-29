@@ -25,6 +25,18 @@
                     <li>@Html.ActionLink("Meus estabelecimentos", "MeusEstabelecimentos", "Estabelecimentos")</li>
                     <li>@Html.ActionLink("Sobre", "About", "Home")</li>
                     <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
+
+                    @if (Session["usuarioLogadoID"] == null)
+                    {
+                        <li style="margin-left: 400px;">@Html.ActionLink("Login", "Login", "Home")</li>
+                        <li>@Html.ActionLink("Registro", "Create", "Usuario")</li>
+                    }
+
+                    @if (Session["usuarioLogadoID"] != null)
+                    {
+                        string nome = (string)Session["nomeUsuarioLogado"];
+                        <li style="margin-left: 400px;">@Html.ActionLink("Sair", "Logout", "Home")</li>
+                    }
                 </ul>
             </div>
         </div>

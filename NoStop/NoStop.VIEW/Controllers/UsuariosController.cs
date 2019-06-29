@@ -52,7 +52,7 @@ namespace NoStop.VIEW
             {
                 db.Usuario.Add(usuario);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Login","Home");
             }
 
             return View(usuario);

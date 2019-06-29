@@ -11,14 +11,7 @@ namespace NoStop.VIEW.Controllers
     {
         public ActionResult Index()
         {
-            if (Session["usuarioLogadoID"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
+            return View();
         }
 
         public ActionResult About()
@@ -54,11 +47,18 @@ namespace NoStop.VIEW.Controllers
                     {
                         Session["usuarioLogadoID"] = v.ID.ToString();
                         Session["nomeUsuarioLogado"] = v.Nome.ToString();
+                        Session["UserData"] = v;
                         return RedirectToAction("Index");
                     }
                 }
             }
             return View(u);
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
