@@ -47,6 +47,7 @@ namespace NoStop.VIEW.Controllers
                     {
                         Session["usuarioLogadoID"] = v.ID.ToString();
                         Session["nomeUsuarioLogado"] = v.Nome.ToString();
+                        Session["Role"] = v.Roles.ToString();
                         Session["UserData"] = v;
                         return RedirectToAction("Index");
                     }
@@ -59,6 +60,11 @@ namespace NoStop.VIEW.Controllers
         {
             Session.Clear();
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Erro()
+        {
+            return View();
         }
     }
 }

@@ -104,7 +104,14 @@ namespace NoStop.VIEW
         // GET: Estabelecimentos/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "admin")
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Erro", "Home");
+            }
         }
 
         // POST: Estabelecimentos/Create

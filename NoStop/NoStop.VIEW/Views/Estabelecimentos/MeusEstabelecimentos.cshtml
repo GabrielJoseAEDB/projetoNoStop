@@ -7,7 +7,10 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "admin")
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
 </p>
 <table class="table">
     <tr>
@@ -20,20 +23,25 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomeEstabelecimento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Endereco)
-        </td>
-        <td>
-            @Html.ActionLink("Editar o estabelecimento", "Edit", new { id = item.idEstabelecimento }) |
-            @Html.ActionLink("Editar setores", "Index", "Setores", new { idEstab = item.idEstabelecimento }, null) |
-            @Html.ActionLink("Editar acessos", "ExibirClientes", new { idEstab = item.idEstabelecimento }) |
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeEstabelecimento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Endereco)
+            </td>
+            <td>
+                @if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "admin")
+                {
+                    @Html.ActionLink("Editar o estabelecimento", "Edit", new { id = item.idEstabelecimento }) <span>|</span>
+                    @Html.ActionLink("Editar acessos", "ExibirClientes", new { idEstab = item.idEstabelecimento }) <span>|</span>
+                }
+                @Html.ActionLink("Details", "Details", new { id = item.idEstabelecimento }) |
+                @Html.ActionLink("Setores", "Index", "Setores", new { idEstab = item.idEstabelecimento }, null) |
+            </td>
+        </tr>
+    }
 
 </table>
