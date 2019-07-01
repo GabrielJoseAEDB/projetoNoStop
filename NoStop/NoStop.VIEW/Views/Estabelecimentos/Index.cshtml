@@ -5,6 +5,12 @@
 }
 
 <h2>Index</h2>
+<p>
+    @if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "admin")
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+</p>
 
 <table class="table">
     <tr>
@@ -27,7 +33,7 @@
         </td>
         <td>
             @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Exibir filas", "Index", "Setores", new { idEstab = item.ID }, null) |
+            @Html.ActionLink("Setores", "Index", "Setores", new { idEstab = item.ID }, null) |
             @if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "admin")
             {
                 @Html.ActionLink("Editar o estabelecimento", "Edit", new { id = item.ID }) <span>|</span>

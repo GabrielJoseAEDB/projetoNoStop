@@ -33,13 +33,13 @@
 
                     @if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "admin")
                     {
-                        <li>@Html.ActionLink("Meus estabelecimentos", "MeusEstabelecimentos", "Estabelecimentos")</li>
+                        <li>@Html.ActionLink("Meus estabelecimentos", "Index", "Estabelecimentos")</li>
                         <li>@Html.ActionLink("Usuários", "Index", "Usuarios")</li>
                         <li>@Html.ActionLink("Permissões", "Index", "Roles")</li>
                     }
                     else if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "user")
                     {
-                        <li>@Html.ActionLink("Estabelecimentos", "MeusEstabelecimentos", "Estabelecimentos")</li>
+                        <li>@Html.ActionLink("Estabelecimentos", "Index", "Estabelecimentos")</li>
                     }
 
                     @if (Session["usuarioLogadoID"] != null)
