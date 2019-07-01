@@ -17,7 +17,7 @@ namespace NoStop.VIEW
         // GET: Clientes
         public ActionResult Index()
         {
-            var cliente = db.Cliente.Include(c => c.Estabelecimento).Include(c => c.Usuario);
+            var cliente = db.Cliente.Include(c => c.Estabelecimento).Include(c => c.Roles).Include(c => c.Usuario);
             return View(cliente.ToList());
         }
 
@@ -40,7 +40,7 @@ namespace NoStop.VIEW
         public ActionResult Create()
         {
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome");
-            ViewBag.IDEstabelecimento = new SelectList(db.Setor, "ID", "Nome");
+            ViewBag.IDRole = new SelectList(db.Roles, "ID", "Nome");
             ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome");
             return View();
         }
@@ -50,7 +50,7 @@ namespace NoStop.VIEW
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Registro,IDUsuario,Role,IDEstabelecimento")] Cliente cliente)
+        public ActionResult Create([Bind(Include = "ID,Registro,IDUsuario,IDRole,IDEstabelecimento")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +60,7 @@ namespace NoStop.VIEW
             }
 
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome", cliente.IDEstabelecimento);
-            ViewBag.IDEstabelecimento = new SelectList(db.Setor, "ID", "Nome", cliente.IDEstabelecimento);
+            ViewBag.IDRole = new SelectList(db.Roles, "ID", "Nome", cliente.IDRole);
             ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome", cliente.IDUsuario);
             return View(cliente);
         }
@@ -78,7 +78,7 @@ namespace NoStop.VIEW
                 return HttpNotFound();
             }
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome", cliente.IDEstabelecimento);
-            ViewBag.IDEstabelecimento = new SelectList(db.Setor, "ID", "Nome", cliente.IDEstabelecimento);
+            ViewBag.IDRole = new SelectList(db.Roles, "ID", "Nome", cliente.IDRole);
             ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome", cliente.IDUsuario);
             return View(cliente);
         }
@@ -88,7 +88,7 @@ namespace NoStop.VIEW
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Registro,IDUsuario,Role,IDEstabelecimento")] Cliente cliente)
+        public ActionResult Edit([Bind(Include = "ID,Registro,IDUsuario,IDRole,IDEstabelecimento")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace NoStop.VIEW
                 return RedirectToAction("Index");
             }
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome", cliente.IDEstabelecimento);
-            ViewBag.IDEstabelecimento = new SelectList(db.Setor, "ID", "Nome", cliente.IDEstabelecimento);
+            ViewBag.IDRole = new SelectList(db.Roles, "ID", "Nome", cliente.IDRole);
             ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome", cliente.IDUsuario);
             return View(cliente);
         }

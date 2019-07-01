@@ -21,32 +21,42 @@ namespace NoStop.VIEW
             return View(db.Estabelecimento.ToList());
         }
 
-        public ActionResult MeusEstabelecimentos()
+        public ActionResult EncontrarCliente(int idUsuario,int idEstabelecimento)
+        {
+            
+            ViewBag.cliente = db.Cliente.Where(c => c.IDEstabelecimento == idEstabelecimento && c.IDUsuario == idUsuario).FirstOrDefault();
+            return View();
+        }
+        public ActionResult MeusEstabelecimentos(int idUsuario)
         {
             int idCliente = 1;
+            List<Cliente> listIds = db.Cliente.Where(c => c.IDUsuario == idUsuario).ToList();
             //Lembrar de colocar o parâmetro para o id do cliente que está acessando
             List<EstabelecimentoCliente> vwModel = new List<EstabelecimentoCliente>();
-            var joinQuery = (from cli in db.Cliente
-                             join es in db.Estabelecimento
-                             on cli.IDEstabelecimento equals es.ID
-                             where cli.ID == idCliente
-                            select new
-                            {
-                            IdCliente= cli.ID,
-                            idEstabelecimento = es.ID,
-                            NomeEstabelecimento = es.Nome,
-                            Endereco = es.Endereco
-                            }).ToList();
-
-            foreach(var item in joinQuery)
+            foreach (var cliId in listIds)
             {
-                vwModel.Add(new EstabelecimentoCliente()
+                var joinQuery = (from cli in db.Cliente
+                                 join es in db.Estabelecimento
+                                 on cli.IDEstabelecimento equals es.ID
+                                 where cli.ID == cliId.ID
+                                 select new
+                                 {
+                                     IdCliente = cli.ID,
+                                     idEstabelecimento = es.ID,
+                                     NomeEstabelecimento = es.Nome,
+                                     Endereco = es.Endereco
+                                 }).ToList();
+
+                foreach (var item in joinQuery)
                 {
-                    IdCliente = item.IdCliente,
-                    idEstabelecimento = item.idEstabelecimento,
-                    NomeEstabelecimento = item.NomeEstabelecimento,
-                    Endereco = item.Endereco
-                });
+                    vwModel.Add(new EstabelecimentoCliente()
+                    {
+                        IdCliente = item.IdCliente,
+                        idEstabelecimento = item.idEstabelecimento,
+                        NomeEstabelecimento = item.NomeEstabelecimento,
+                        Endereco = item.Endereco
+                    });
+                }
             }
             return View(vwModel);
         }
