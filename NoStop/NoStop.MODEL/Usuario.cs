@@ -11,6 +11,8 @@ namespace NoStop.MODEL
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel;
     
     public partial class Usuario
     {
@@ -21,6 +23,9 @@ namespace NoStop.MODEL
         }
     
         public int ID { get; set; }
+
+        [Required]
+        [DisplayName("Nome do Usuário")]
         public string Nome { get; set; }
         public string Senha { get; set; }
         public string Email { get; set; }
