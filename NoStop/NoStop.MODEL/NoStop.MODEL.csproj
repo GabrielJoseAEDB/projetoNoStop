@@ -73,6 +73,11 @@
     <Compile Include="FilaData.cs">
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Partial\Cliente.cs" />
+    <Compile Include="Partial\Estabelecimento.cs" />
+    <Compile Include="Partial\FilaData.cs" />
+    <Compile Include="Partial\Roles.cs" />
+    <Compile Include="Partial\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\RepositoryCliente.cs" />
     <Compile Include="Repositories\RepositoryEstabelecimento.cs" />
