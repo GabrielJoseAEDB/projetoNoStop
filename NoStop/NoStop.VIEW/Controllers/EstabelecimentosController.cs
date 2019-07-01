@@ -29,7 +29,6 @@ namespace NoStop.VIEW
         }
         public ActionResult MeusEstabelecimentos(int idUsuario)
         {
-            int idCliente = 1;
             List<Cliente> listIds = db.Cliente.Where(c => c.IDUsuario == idUsuario).ToList();
             //Lembrar de colocar o parâmetro para o id do cliente que está acessando
             List<EstabelecimentoCliente> vwModel = new List<EstabelecimentoCliente>();
@@ -39,6 +38,7 @@ namespace NoStop.VIEW
                                  join es in db.Estabelecimento
                                  on cli.IDEstabelecimento equals es.ID
                                  where cli.ID == cliId.ID
+                                 where cli.IDRole == 1
                                  select new
                                  {
                                      IdCliente = cli.ID,
