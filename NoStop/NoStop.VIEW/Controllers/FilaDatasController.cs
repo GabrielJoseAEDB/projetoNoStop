@@ -43,7 +43,7 @@ namespace NoStop.VIEW
         public ActionResult ProximoFila(int idSetor)
         {
             //Conta as pessoas na fila no setor e no dia
-            var clienteAtendido = db.FilaData.Where(f => f.IDSetor == idSetor && f.Data == DateTime.Today).FirstOrDefault();
+            var clienteAtendido = db.FilaData.Where(f => f.IDSetor == idSetor && f.Data == DateTime.Today).OrderBy(f=> f.ID).FirstOrDefault();
             clienteAtendido.Atendido = true;
             db.Entry(clienteAtendido).State = EntityState.Modified;
             db.SaveChanges();
