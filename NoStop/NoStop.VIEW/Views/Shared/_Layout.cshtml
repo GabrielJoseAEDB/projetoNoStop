@@ -34,14 +34,36 @@
                     @if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "admin")
                     {
                         int idU = int.Parse((string)(Session["usuarioLogadoID"]));
-                        <li>@Html.ActionLink("Meus estabelecimentos", "MeusEstabelecimentos", "Estabelecimentos", new { idUsuario = idU }, null)</li>
-                        <li>@Html.ActionLink("Usuários", "Index", "Usuarios")</li>
-                        <li>@Html.ActionLink("Permissões", "Index", "Roles")</li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Painel de Controle <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Usuários", "Index", "Usuarios")</li>
+                                <li>@Html.ActionLink("Permissões", "Index", "Roles")</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Estabelecimentos <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Meus estabelecimentos", "MeusEstabelecimentos", "Estabelecimentos", new { idUsuario = idU }, null)</li>
+                                <li>@Html.ActionLink("Estabelecimentos", "Index", "Estabelecimentos")</li>
+                            </ul>
+                        </li>
                     }
                     else if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "user")
                     {
-                        <li>@Html.ActionLink("Meus estabelecimentos", "Index", "MeusEstabelecimentos", new { idUsuario = Session["usuarioLogadoID"] }, null)</li>
-                        <li>@Html.ActionLink("Estabelecimentos", "Index", "Estabelecimentos")</li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Estabelecimentos <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Meus estabelecimentos", "MeusEstabelecimentos", "Estabelecimentos", new { idUsuario = Session["usuarioLogadoID"] }, null)</li>
+                                <li>@Html.ActionLink("Estabelecimentos", "Index", "Estabelecimentos")</li>
+                            </ul>
+                        </li>
                     }
 
                     @if (Session["usuarioLogadoID"] != null)
