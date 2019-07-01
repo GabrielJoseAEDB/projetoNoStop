@@ -4,24 +4,27 @@
     ViewBag.Title = "Index";
 }
 @{ 
-    var data = ViewBag.Message;
+    var qtdFila = ViewBag.qtdFila;
+    var nAtendidos = ViewBag.nAtendidos;
+    var idSetor = ViewBag.idSetor;
 }
-<h2>Index</h2>
+<h2>Visualização da fila:</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-    <h3>Id: @data</h3>
+    <h3>Pessoas na fila: @qtdFila</h3>
+</p>
+<p>
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Iniciar nova fila", "Edit", new { id = 1 })
+            A ser atendido no momento: @nAtendidos
         </th>
         <th>
-            @Html.ActionLink("Atender próximo", "Edit", new { id = 1 })
+
         </th>
         <th>
-            Número da fila:
+            @Html.ActionLink("Atender próximo", "ProximoFila", new { idSetor = @idSetor })
         </th>
         <th></th>
     </tr>

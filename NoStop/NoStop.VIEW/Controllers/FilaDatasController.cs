@@ -21,23 +21,44 @@ namespace NoStop.VIEW
             var filaData = db.FilaData.Include(f => f.Cliente).Include(f => f.Setor);
             return View(filaData.ToList());
         }
-        public ActionResult FilaCliente(int idSetor)
+        public ActionResult FilaCliente(int idSetor, int idCliente)
         {
             //Posição na fila
-            int qtdFila = db.FilaData.Where(f => f.IDSetor == idSetor && f.Data == DateTime.Today).Count();
-            int nAtendidos = db.FilaData.Where(f => f.IDSetor == idSetor && f.Data == DateTime.Today && f.Atendido==false).Count();
-            var vwBag = new qtdFila {
-                qtdNaFila = qtdFila,
-                nAtendidos = nAtendidos
-            };
-            ViewBag.vwBag = vwBag;
+            List<FilaData> filaHoje = db.FilaData.Where(f => f.IDSetor == idSetor && f.Data == DateTime.Today).Cast<FilaData>().ToList();
+            int index = 0, nFila = 0, nAtendidos = 0;
+
+            foreach(FilaData c in filaHoje)
+            {
+                index++;
+                if (c.IDCliente == idCliente)
+                {
+                    nFila = index;
+                }
+            }
+            index = 0;
+            foreach (FilaData c in filaHoje)
+            {
+                index++;
+  
+                if (c.Atendido == false && index < nFila)
+                {
+                    nAtendidos++;
+                }
+            }
+
+            ViewBag.nFila = nFila;
+            ViewBag.nAtendidos = nAtendidos;
             return View();
         }
         public ActionResult FilaAtendente(int idSetor)
         {
             //Conta as pessoas na fila no setor e no dia
             int qtdFila = db.FilaData.Where(f => f.IDSetor == idSetor && f.Data== DateTime.Today).Count();
-            ViewBag.Message = qtdFila.ToString();
+            int nAtendidos = db.FilaData.Where(f => f.IDSetor == idSetor && f.Data == DateTime.Today).Count() - 
+                db.FilaData.Where(f => f.IDSetor == idSetor && f.Data == DateTime.Today && f.Atendido == false).Count() +1;
+            ViewBag.qtdFila = qtdFila.ToString();
+            ViewBag.nAtendidos = nAtendidos.ToString();
+            ViewBag.idSetor = idSetor.ToString();
             return View();
         }
         public ActionResult ProximoFila(int idSetor)
@@ -47,7 +68,7 @@ namespace NoStop.VIEW
             clienteAtendido.Atendido = true;
             db.Entry(clienteAtendido).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("FilaAtendente");
+            return RedirectToAction("FilaAtendente", new { idSetor = idSetor });
         }
         //Inserir o Cliente na fila
         public ActionResult EntraNaFila(int idSetor, int idUsuario)
@@ -57,6 +78,11 @@ namespace NoStop.VIEW
             if (idCliente==null)
             {
                 return RedirectToAction("Criar","Clientes", new { idEstabelecimento = idEstabelecimento, idUsuario = idUsuario});
+            }
+            FilaData filaCli = db.FilaData.Where(f => f.IDCliente == idCliente.ID && f.IDSetor == idSetor && f.Atendido == false && f.Data == DateTime.Today).FirstOrDefault();
+            if (filaCli!=null)
+            {
+                return RedirectToAction("FilaCliente", new { idSetor = idSetor, idCliente = idCliente.ID });
             }
             FilaData filaCliente = new FilaData();
             filaCliente.IDSetor = idSetor;
@@ -68,7 +94,7 @@ namespace NoStop.VIEW
             {
                 db.FilaData.Add(filaCliente);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("FilaCliente" , new { idSetor = idSetor, idCliente = idCliente.ID });
             }
 
             return RedirectToAction("Index");

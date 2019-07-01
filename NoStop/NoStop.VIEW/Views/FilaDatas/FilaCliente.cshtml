@@ -1,27 +1,26 @@
 ﻿@model IEnumerable<NoStop.MODEL.ViewModels.qtdFila>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Visualização da Fila";
 
     // Não necessita de TypeCasting
-    var vwBag = ViewBag.vwBag;
+    var nFila = ViewBag.nFila;
+    var nAtendidos = ViewBag.nAtendidos;
 }
 
-<h2>Index</h2>
+<h2>Visualização da Fila</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
 
         </th>
         <th>
-            Posição na fila: @vwBag.qtdNaFila
+            Posição na fila: @nFila
         </th>
         <th>
-            Clientes na sua frente: @vwBag.nAtendidos
+            Clientes na sua frente: @nAtendidos
         </th>
         <th></th>
     </tr>
