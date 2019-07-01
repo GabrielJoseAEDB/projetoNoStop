@@ -33,12 +33,14 @@
 
                     @if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "admin")
                     {
-                        <li>@Html.ActionLink("Meus estabelecimentos", "Index", "Estabelecimentos")</li>
+                        int idU = int.Parse((string)(Session["usuarioLogadoID"]));
+                        <li>@Html.ActionLink("Meus estabelecimentos", "MeusEstabelecimentos", "Estabelecimentos", new { idUsuario = idU }, null)</li>
                         <li>@Html.ActionLink("Usuários", "Index", "Usuarios")</li>
                         <li>@Html.ActionLink("Permissões", "Index", "Roles")</li>
                     }
                     else if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "user")
                     {
+                        <li>@Html.ActionLink("Meus estabelecimentos", "Index", "MeusEstabelecimentos", new { idUsuario = Session["usuarioLogadoID"] }, null)</li>
                         <li>@Html.ActionLink("Estabelecimentos", "Index", "Estabelecimentos")</li>
                     }
 

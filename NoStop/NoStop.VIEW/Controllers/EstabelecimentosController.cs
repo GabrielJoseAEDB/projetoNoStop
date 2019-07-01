@@ -66,7 +66,6 @@ namespace NoStop.VIEW
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //Lembrar de colocar o parâmetro para o id do cliente que está acessando
             List<ClientePermissoes> vwModel = new List<ClientePermissoes>();
             var joinQuery = (from cli in db.Cliente
                              join es in db.Estabelecimento

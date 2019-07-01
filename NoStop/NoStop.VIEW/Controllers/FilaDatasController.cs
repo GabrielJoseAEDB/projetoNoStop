@@ -50,13 +50,12 @@ namespace NoStop.VIEW
             return RedirectToAction("FilaAtendente");
         }
         //Inserir o Cliente na fila
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EntraNaFila(int idSetor, int idCliente)
+        public ActionResult EntraNaFila(int idSetor, int idUsuario)
         {
+            Cliente idCliente = db.Cliente.Where(c => c.IDUsuario == idUsuario && c.IDEstabelecimento == idSetor).FirstOrDefault();
             FilaData filaCliente = new FilaData();
             filaCliente.IDSetor = idSetor;
-            filaCliente.IDCliente = idCliente;
+            filaCliente.IDCliente = idCliente.ID;
             filaCliente.Data = DateTime.Today;
             filaCliente.Atendido = false;
 

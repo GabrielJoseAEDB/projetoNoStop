@@ -92,14 +92,18 @@ namespace NoStop.VIEW
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cliente).State = EntityState.Modified;
+                Cliente cEdit = db.Cliente.Where(c => c.ID == cliente.ID).FirstOrDefault();
+                cEdit.IDRole = cliente.IDRole;
+                cEdit.Registro = cliente.Registro;
+                db.Entry(cEdit).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome", cliente.IDEstabelecimento);
             ViewBag.IDRole = new SelectList(db.Roles, "ID", "Nome", cliente.IDRole);
             ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome", cliente.IDUsuario);
-            return View(cliente);
+            return RedirectToAction("ExibirClientes", "Estabelecimentos");
+            
         }
 
         // GET: Clientes/Delete/5
