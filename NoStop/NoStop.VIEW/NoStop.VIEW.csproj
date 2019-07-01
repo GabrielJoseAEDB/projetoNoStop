@@ -159,6 +159,7 @@
     <Compile Include="Controllers\EstabelecimentosController.cs" />
     <Compile Include="Controllers\FilaDatasController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Filters\AutorizaAdmin.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
