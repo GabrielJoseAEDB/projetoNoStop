@@ -40,7 +40,7 @@
                     }
                     else if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "user")
                     {
-                        <li>@Html.ActionLink("Meus estabelecimentos", "MeusEstabelecimentos", "Estabelecimentos", new { idUsuario = Session["usuarioLogadoID"] }, null)</li>
+                        <li>@Html.ActionLink("Meus estabelecimentos", "Index", "MeusEstabelecimentos", new { idUsuario = Session["usuarioLogadoID"] }, null)</li>
                         <li>@Html.ActionLink("Estabelecimentos", "Index", "Estabelecimentos")</li>
                     }
 
