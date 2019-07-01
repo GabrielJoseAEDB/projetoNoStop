@@ -28,7 +28,7 @@ namespace NoStop.VIEW
             int nAtendidos = db.FilaData.Where(f => f.IDSetor == idSetor && f.Data == DateTime.Today && f.Atendido==false).Count();
             var vwBag = new qtdFila {
                 qtdNaFila = qtdFila,
-            nAtendidos = nAtendidos
+                nAtendidos = nAtendidos
             };
             ViewBag.vwBag = vwBag;
             return View();
@@ -52,7 +52,12 @@ namespace NoStop.VIEW
         //Inserir o Cliente na fila
         public ActionResult EntraNaFila(int idSetor, int idUsuario)
         {
-            Cliente idCliente = db.Cliente.Where(c => c.IDUsuario == idUsuario && c.IDEstabelecimento == idSetor).FirstOrDefault();
+            int idEstabelecimento = (db.Setor.Where(e => e.ID == idSetor).FirstOrDefault()).IDEstabelecimento;
+            Cliente idCliente = db.Cliente.Where(c => c.IDUsuario == idUsuario && c.IDEstabelecimento == idEstabelecimento).FirstOrDefault();
+            if (idCliente==null)
+            {
+                return RedirectToAction("Criar","Clientes", new { idEstabelecimento = idEstabelecimento, idUsuario = idUsuario});
+            }
             FilaData filaCliente = new FilaData();
             filaCliente.IDSetor = idSetor;
             filaCliente.IDCliente = idCliente.ID;

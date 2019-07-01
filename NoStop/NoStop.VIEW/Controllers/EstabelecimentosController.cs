@@ -38,7 +38,7 @@ namespace NoStop.VIEW
                                  join es in db.Estabelecimento
                                  on cli.IDEstabelecimento equals es.ID
                                  where cli.ID == cliId.ID
-                                 where cli.IDRole == 1
+                                 where cli.Roles.Nome == "admin"
                                  select new
                                  {
                                      IdCliente = cli.ID,

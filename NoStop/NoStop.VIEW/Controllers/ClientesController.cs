@@ -36,6 +36,33 @@ namespace NoStop.VIEW
             return View(cliente);
         }
 
+        public ActionResult Criar(int idEstabelecimento, int idUsuario)
+        {
+            ViewBag.IDEstabelecimento = idEstabelecimento;
+            ViewBag.IDUsuario = idUsuario;
+            return View();
+        }
+        // POST: Clientes/Create
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Criar([Bind(Include = "ID,Registro,IDUsuario,IDEstabelecimento")] Cliente cliente)
+        {
+            if (ModelState.IsValid)
+            {
+                cliente.IDRole = 1;
+                db.Cliente.Add(cliente);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome", cliente.IDEstabelecimento);
+            ViewBag.IDRole = new SelectList(db.Roles, "ID", "Nome", cliente.IDRole);
+            ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome", cliente.IDUsuario);
+            return View(cliente);
+        }
+
         // GET: Clientes/Create
         public ActionResult Create()
         {
@@ -45,9 +72,6 @@ namespace NoStop.VIEW
             return View();
         }
 
-        // POST: Clientes/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Registro,IDUsuario,IDRole,IDEstabelecimento")] Cliente cliente)
