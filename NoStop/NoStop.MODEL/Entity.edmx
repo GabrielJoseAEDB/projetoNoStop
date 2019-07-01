@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DB_A4A8B7_nostopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DB_A4A8B7_nostopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="ID" />
@@ -12,7 +12,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Registro" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IDUsuario" Type="int" Nullable="false" />
-          <Property Name="Role" Type="bit" Nullable="false" />
+          <Property Name="IDRole" Type="int" Nullable="false" />
           <Property Name="IDEstabelecimento" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Estabelecimento">
@@ -67,7 +67,7 @@
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CPF" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Telefone" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Roles" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Roles" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <Association Name="FK_Cliente_Estabelecimento">
           <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="1" />
@@ -81,15 +81,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Cliente_Setor">
-          <End Role="Setor" Type="Self.Setor" Multiplicity="1" />
+        <Association Name="FK_Cliente_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Setor">
+            <Principal Role="Roles">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Cliente">
-              <PropertyRef Name="IDEstabelecimento" />
+              <PropertyRef Name="IDRole" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -165,8 +165,8 @@
             <End Role="Estabelecimento" EntitySet="Estabelecimento" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK_Cliente_Setor" Association="Self.FK_Cliente_Setor">
-            <End Role="Setor" EntitySet="Setor" />
+          <AssociationSet Name="FK_Cliente_Roles" Association="Self.FK_Cliente_Roles">
+            <End Role="Roles" EntitySet="Roles" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
           <AssociationSet Name="FK_Cliente_Usuario" Association="Self.FK_Cliente_Usuario">
@@ -190,35 +190,71 @@
             <End Role="Setor" EntitySet="Setor" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DB_A4A8B7_nostopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="noStopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cliente" EntityType="DB_A4A8B7_nostopModel.Cliente" />
+          <EntitySet Name="Estabelecimento" EntityType="DB_A4A8B7_nostopModel.Estabelecimento" />
+          <EntitySet Name="FilaData" EntityType="DB_A4A8B7_nostopModel.FilaData" />
+          <EntitySet Name="Roles" EntityType="DB_A4A8B7_nostopModel.Roles" />
+          <EntitySet Name="Setor" EntityType="DB_A4A8B7_nostopModel.Setor" />
+          <EntitySet Name="Status" EntityType="DB_A4A8B7_nostopModel.Status" />
+          <AssociationSet Name="FK_Cliente_Estabelecimento" Association="DB_A4A8B7_nostopModel.FK_Cliente_Estabelecimento">
+            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Roles" Association="DB_A4A8B7_nostopModel.FK_Cliente_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilaData_Cliente" Association="DB_A4A8B7_nostopModel.FK_FilaData_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="FilaData" EntitySet="FilaData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Setor_Estabelecimento" Association="DB_A4A8B7_nostopModel.FK_Setor_Estabelecimento">
+            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+            <End Role="Setor" EntitySet="Setor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilaData_Setor" Association="DB_A4A8B7_nostopModel.FK_FilaData_Setor">
+            <End Role="Setor" EntitySet="Setor" />
+            <End Role="FilaData" EntitySet="FilaData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Roles_Status" Association="DB_A4A8B7_nostopModel.FK_Roles_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Roles" EntitySet="Roles" />
+          </AssociationSet>
+          <EntitySet Name="Usuario" EntityType="DB_A4A8B7_nostopModel.Usuario" />
+          <AssociationSet Name="FK_Cliente_Usuario" Association="DB_A4A8B7_nostopModel.FK_Cliente_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Registro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Registro" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IDUsuario" Type="Int32" Nullable="false" />
-          <Property Name="Role" Type="Boolean" Nullable="false" />
+          <Property Name="IDRole" Type="Int32" Nullable="false" />
           <Property Name="IDEstabelecimento" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Estabelecimento" Relationship="Self.FK_Cliente_Estabelecimento" FromRole="Cliente" ToRole="Estabelecimento" />
-          <NavigationProperty Name="Setor" Relationship="Self.FK_Cliente_Setor" FromRole="Cliente" ToRole="Setor" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK_Cliente_Usuario" FromRole="Cliente" ToRole="Usuario" />
-          <NavigationProperty Name="FilaData" Relationship="Self.FK_FilaData_Cliente" FromRole="Cliente" ToRole="FilaData" />
+          <NavigationProperty Name="Estabelecimento" Relationship="DB_A4A8B7_nostopModel.FK_Cliente_Estabelecimento" FromRole="Cliente" ToRole="Estabelecimento" />
+          <NavigationProperty Name="Roles" Relationship="DB_A4A8B7_nostopModel.FK_Cliente_Roles" FromRole="Cliente" ToRole="Roles" />
+          <NavigationProperty Name="FilaData" Relationship="DB_A4A8B7_nostopModel.FK_FilaData_Cliente" FromRole="Cliente" ToRole="FilaData" />
+          <NavigationProperty Name="Usuario" Relationship="DB_A4A8B7_nostopModel.FK_Cliente_Usuario" FromRole="Cliente" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Estabelecimento">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CNPJ" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Endereco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Estabelecimento" FromRole="Estabelecimento" ToRole="Cliente" />
-          <NavigationProperty Name="Setor" Relationship="Self.FK_Setor_Estabelecimento" FromRole="Estabelecimento" ToRole="Setor" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CNPJ" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Endereco" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cliente" Relationship="DB_A4A8B7_nostopModel.FK_Cliente_Estabelecimento" FromRole="Estabelecimento" ToRole="Cliente" />
+          <NavigationProperty Name="Setor" Relationship="DB_A4A8B7_nostopModel.FK_Setor_Estabelecimento" FromRole="Estabelecimento" ToRole="Setor" />
         </EntityType>
         <EntityType Name="FilaData">
           <Key>
@@ -229,53 +265,40 @@
           <Property Name="IDSetor" Type="Int32" Nullable="false" />
           <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Atendido" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK_FilaData_Cliente" FromRole="FilaData" ToRole="Cliente" />
-          <NavigationProperty Name="Setor" Relationship="Self.FK_FilaData_Setor" FromRole="FilaData" ToRole="Setor" />
+          <NavigationProperty Name="Cliente" Relationship="DB_A4A8B7_nostopModel.FK_FilaData_Cliente" FromRole="FilaData" ToRole="Cliente" />
+          <NavigationProperty Name="Setor" Relationship="DB_A4A8B7_nostopModel.FK_FilaData_Setor" FromRole="FilaData" ToRole="Setor" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IDStatus" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_Roles_Status" FromRole="Roles" ToRole="Status" />
+          <NavigationProperty Name="Cliente" Relationship="DB_A4A8B7_nostopModel.FK_Cliente_Roles" FromRole="Roles" ToRole="Cliente" />
+          <NavigationProperty Name="Status" Relationship="DB_A4A8B7_nostopModel.FK_Roles_Status" FromRole="Roles" ToRole="Status" />
         </EntityType>
         <EntityType Name="Setor">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IDEstabelecimento" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Setor" FromRole="Setor" ToRole="Cliente" />
-          <NavigationProperty Name="Estabelecimento" Relationship="Self.FK_Setor_Estabelecimento" FromRole="Setor" ToRole="Estabelecimento" />
-          <NavigationProperty Name="FilaData" Relationship="Self.FK_FilaData_Setor" FromRole="Setor" ToRole="FilaData" />
+          <NavigationProperty Name="Estabelecimento" Relationship="DB_A4A8B7_nostopModel.FK_Setor_Estabelecimento" FromRole="Setor" ToRole="Estabelecimento" />
+          <NavigationProperty Name="FilaData" Relationship="DB_A4A8B7_nostopModel.FK_FilaData_Setor" FromRole="Setor" ToRole="FilaData" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Roles" Relationship="Self.FK_Roles_Status" FromRole="Status" ToRole="Roles" />
-        </EntityType>
-        <EntityType Name="Usuario">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Senha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CPF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Roles" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Usuario" FromRole="Usuario" ToRole="Cliente" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Roles" Relationship="DB_A4A8B7_nostopModel.FK_Roles_Status" FromRole="Status" ToRole="Roles" />
         </EntityType>
         <Association Name="FK_Cliente_Estabelecimento">
-          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="1" />
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <End Type="DB_A4A8B7_nostopModel.Estabelecimento" Role="Estabelecimento" Multiplicity="1" />
+          <End Type="DB_A4A8B7_nostopModel.Cliente" Role="Cliente" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estabelecimento">
               <PropertyRef Name="ID" />
@@ -285,33 +308,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Cliente_Setor">
-          <End Role="Setor" Type="Self.Setor" Multiplicity="1" />
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+        <Association Name="FK_Cliente_Roles">
+          <End Type="DB_A4A8B7_nostopModel.Roles" Role="Roles" Multiplicity="1" />
+          <End Type="DB_A4A8B7_nostopModel.Cliente" Role="Cliente" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Setor">
+            <Principal Role="Roles">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Cliente">
-              <PropertyRef Name="IDEstabelecimento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Cliente_Usuario">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Cliente">
-              <PropertyRef Name="IDUsuario" />
+              <PropertyRef Name="IDRole" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FilaData_Cliente">
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
-          <End Role="FilaData" Type="Self.FilaData" Multiplicity="*" />
+          <End Type="DB_A4A8B7_nostopModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="DB_A4A8B7_nostopModel.FilaData" Role="FilaData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cliente">
               <PropertyRef Name="ID" />
@@ -322,8 +333,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Setor_Estabelecimento">
-          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="1" />
-          <End Role="Setor" Type="Self.Setor" Multiplicity="*" />
+          <End Type="DB_A4A8B7_nostopModel.Estabelecimento" Role="Estabelecimento" Multiplicity="1" />
+          <End Type="DB_A4A8B7_nostopModel.Setor" Role="Setor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estabelecimento">
               <PropertyRef Name="ID" />
@@ -334,8 +345,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FilaData_Setor">
-          <End Role="Setor" Type="Self.Setor" Multiplicity="1" />
-          <End Role="FilaData" Type="Self.FilaData" Multiplicity="*" />
+          <End Type="DB_A4A8B7_nostopModel.Setor" Role="Setor" Multiplicity="1" />
+          <End Type="DB_A4A8B7_nostopModel.FilaData" Role="FilaData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Setor">
               <PropertyRef Name="ID" />
@@ -346,8 +357,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Roles_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+          <End Type="DB_A4A8B7_nostopModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="DB_A4A8B7_nostopModel.Roles" Role="Roles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="ID" />
@@ -357,43 +368,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="noStopEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
-          <EntitySet Name="Estabelecimento" EntityType="Self.Estabelecimento" />
-          <EntitySet Name="FilaData" EntityType="Self.FilaData" />
-          <EntitySet Name="Roles" EntityType="Self.Roles" />
-          <EntitySet Name="Setor" EntityType="Self.Setor" />
-          <EntitySet Name="Status" EntityType="Self.Status" />
-          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
-          <AssociationSet Name="FK_Cliente_Estabelecimento" Association="Self.FK_Cliente_Estabelecimento">
-            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
-            <End Role="Cliente" EntitySet="Cliente" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cliente_Setor" Association="Self.FK_Cliente_Setor">
-            <End Role="Setor" EntitySet="Setor" />
-            <End Role="Cliente" EntitySet="Cliente" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cliente_Usuario" Association="Self.FK_Cliente_Usuario">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Cliente" EntitySet="Cliente" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FilaData_Cliente" Association="Self.FK_FilaData_Cliente">
-            <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="FilaData" EntitySet="FilaData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Setor_Estabelecimento" Association="Self.FK_Setor_Estabelecimento">
-            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
-            <End Role="Setor" EntitySet="Setor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FilaData_Setor" Association="Self.FK_FilaData_Setor">
-            <End Role="Setor" EntitySet="Setor" />
-            <End Role="FilaData" EntitySet="FilaData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Roles_Status" Association="Self.FK_Roles_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Roles" EntitySet="Roles" />
-          </AssociationSet>
-        </EntityContainer>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Senha" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CPF" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Roles" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cliente" Relationship="DB_A4A8B7_nostopModel.FK_Cliente_Usuario" FromRole="Usuario" ToRole="Cliente" />
+        </EntityType>
+        <Association Name="FK_Cliente_Usuario">
+          <End Type="DB_A4A8B7_nostopModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="DB_A4A8B7_nostopModel.Cliente" Role="Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="IDUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -403,71 +402,71 @@
           <EntitySetMapping Name="Cliente">
             <EntityTypeMapping TypeName="DB_A4A8B7_nostopModel.Cliente">
               <MappingFragment StoreEntitySet="Cliente">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Registro" ColumnName="Registro" />
-                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="IDEstabelecimento" ColumnName="IDEstabelecimento" />
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+                <ScalarProperty Name="Registro" ColumnName="Registro" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Estabelecimento">
             <EntityTypeMapping TypeName="DB_A4A8B7_nostopModel.Estabelecimento">
               <MappingFragment StoreEntitySet="Estabelecimento">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
                 <ScalarProperty Name="Endereco" ColumnName="Endereco" />
+                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FilaData">
             <EntityTypeMapping TypeName="DB_A4A8B7_nostopModel.FilaData">
               <MappingFragment StoreEntitySet="FilaData">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="IDCliente" ColumnName="IDCliente" />
-                <ScalarProperty Name="IDSetor" ColumnName="IDSetor" />
-                <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="Atendido" ColumnName="Atendido" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="IDSetor" ColumnName="IDSetor" />
+                <ScalarProperty Name="IDCliente" ColumnName="IDCliente" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="DB_A4A8B7_nostopModel.Roles">
               <MappingFragment StoreEntitySet="Roles">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="IDStatus" ColumnName="IDStatus" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Setor">
             <EntityTypeMapping TypeName="DB_A4A8B7_nostopModel.Setor">
               <MappingFragment StoreEntitySet="Setor">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="IDEstabelecimento" ColumnName="IDEstabelecimento" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Status">
             <EntityTypeMapping TypeName="DB_A4A8B7_nostopModel.Status">
               <MappingFragment StoreEntitySet="Status">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="DB_A4A8B7_nostopModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="Senha" ColumnName="Senha" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="CPF" ColumnName="CPF" />
-                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
                 <ScalarProperty Name="Roles" ColumnName="Roles" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

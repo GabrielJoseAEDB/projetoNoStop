@@ -14,10 +14,18 @@ namespace NoStop.MODEL
     
     public partial class Roles
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Roles()
+        {
+            this.Cliente = new HashSet<Cliente>();
+        }
+    
         public int ID { get; set; }
         public string Nome { get; set; }
         public int IDStatus { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cliente> Cliente { get; set; }
         public virtual Status Status { get; set; }
     }
 }

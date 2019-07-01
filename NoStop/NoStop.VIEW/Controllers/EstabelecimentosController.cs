@@ -67,7 +67,7 @@ namespace NoStop.VIEW
                                  IdCliente = cli.ID,
                                  idEstabelecimento = es.ID,
                                  NomeCliente = cli.Usuario.Nome,
-                                 Adm = cli.Role
+                                 Role = cli.IDRole
                              }).ToList();
             if (joinQuery == null)
             {
@@ -80,7 +80,7 @@ namespace NoStop.VIEW
                     IDCliente = item.IdCliente,
                     IDEstabelecimento = item.idEstabelecimento,
                     NomeCliente = item.NomeCliente,
-                    Role = item.Adm
+                    Role = item.Role
                 });
             }
             return View(vwModel);
@@ -182,10 +182,18 @@ namespace NoStop.VIEW
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Estabelecimento estabelecimento = db.Estabelecimento.Find(id);
-            db.Estabelecimento.Remove(estabelecimento);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Estabelecimento estabelecimento = db.Estabelecimento.Find(id);
+                db.Estabelecimento.Remove(estabelecimento);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)

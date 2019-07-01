@@ -11,6 +11,6 @@ namespace NoStop.MODEL.ViewModels
         public int IDCliente { get; set; }
         public int IDEstabelecimento { get; set; }
         public string NomeCliente { get; set; }
-        public bool Role { get; set; }
+        public int Role { get; set; }
     }
 }

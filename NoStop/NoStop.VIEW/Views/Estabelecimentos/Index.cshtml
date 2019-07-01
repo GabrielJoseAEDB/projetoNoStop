@@ -28,6 +28,12 @@
         <td>
             @Html.ActionLink("Details", "Details", new { id = item.ID }) |
             @Html.ActionLink("Exibir filas", "Index", "Setores", new { idEstab = item.ID }, null) |
+            @if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "admin")
+            {
+                @Html.ActionLink("Editar o estabelecimento", "Edit", new { id = item.ID }) <span>|</span>
+                @Html.ActionLink("Editar acessos", "ExibirClientes", new { idEstab = item.ID }) <span>|</span>
+                @Html.ActionLink("Deletar o estabelecimento", "Delete", new { id = item.ID }) <span>|</span>
+            }
         </td>
     </tr>
 }

@@ -23,13 +23,13 @@ namespace NoStop.MODEL
         public int ID { get; set; }
         public string Registro { get; set; }
         public int IDUsuario { get; set; }
-        public bool Role { get; set; }
+        public int IDRole { get; set; }
         public int IDEstabelecimento { get; set; }
     
         public virtual Estabelecimento Estabelecimento { get; set; }
-        public virtual Setor Setor { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public virtual Roles Roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FilaData> FilaData { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

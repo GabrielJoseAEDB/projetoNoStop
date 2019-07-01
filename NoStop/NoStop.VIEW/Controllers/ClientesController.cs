@@ -40,13 +40,14 @@ namespace NoStop.VIEW
         public ActionResult Create()
         {
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome");
+            ViewBag.IDEstabelecimento = new SelectList(db.Setor, "ID", "Nome");
             ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome");
             return View();
         }
 
         // POST: Clientes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Registro,IDUsuario,Role,IDEstabelecimento")] Cliente cliente)
@@ -59,6 +60,7 @@ namespace NoStop.VIEW
             }
 
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome", cliente.IDEstabelecimento);
+            ViewBag.IDEstabelecimento = new SelectList(db.Setor, "ID", "Nome", cliente.IDEstabelecimento);
             ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome", cliente.IDUsuario);
             return View(cliente);
         }
@@ -76,13 +78,14 @@ namespace NoStop.VIEW
                 return HttpNotFound();
             }
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome", cliente.IDEstabelecimento);
+            ViewBag.IDEstabelecimento = new SelectList(db.Setor, "ID", "Nome", cliente.IDEstabelecimento);
             ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome", cliente.IDUsuario);
             return View(cliente);
         }
 
         // POST: Clientes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Registro,IDUsuario,Role,IDEstabelecimento")] Cliente cliente)
@@ -94,6 +97,7 @@ namespace NoStop.VIEW
                 return RedirectToAction("Index");
             }
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome", cliente.IDEstabelecimento);
+            ViewBag.IDEstabelecimento = new SelectList(db.Setor, "ID", "Nome", cliente.IDEstabelecimento);
             ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome", cliente.IDUsuario);
             return View(cliente);
         }

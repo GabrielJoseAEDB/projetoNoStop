@@ -17,7 +17,6 @@ namespace NoStop.MODEL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Setor()
         {
-            this.Cliente = new HashSet<Cliente>();
             this.FilaData = new HashSet<FilaData>();
         }
     
@@ -25,8 +24,6 @@ namespace NoStop.MODEL
         public string Nome { get; set; }
         public int IDEstabelecimento { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cliente> Cliente { get; set; }
         public virtual Estabelecimento Estabelecimento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FilaData> FilaData { get; set; }

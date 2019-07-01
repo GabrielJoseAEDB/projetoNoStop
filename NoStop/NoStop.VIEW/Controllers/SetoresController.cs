@@ -54,7 +54,7 @@ namespace NoStop.VIEW
             {
                 db.Setor.Add(setor);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new {idEstab = setor.IDEstabelecimento });
             }
 
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome", setor.IDEstabelecimento);
@@ -88,7 +88,7 @@ namespace NoStop.VIEW
             {
                 db.Entry(setor).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { idEstab = setor.IDEstabelecimento });
             }
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome", setor.IDEstabelecimento);
             return View(setor);
@@ -117,7 +117,7 @@ namespace NoStop.VIEW
             Setor setor = db.Setor.Find(id);
             db.Setor.Remove(setor);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { idEstab = setor.IDEstabelecimento });
         }
 
         protected override void Dispose(bool disposing)
