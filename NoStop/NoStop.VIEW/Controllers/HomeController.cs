@@ -16,14 +16,14 @@ namespace NoStop.VIEW.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Descrição da Página.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Informações de Contato.";
 
             return View();
         }
@@ -46,6 +46,7 @@ namespace NoStop.VIEW.Controllers
                     if (v != null)
                     {
                         Session["usuarioLogadoID"] = v.ID.ToString();
+                        Session["ID"] = v.ID;
                         Session["nomeUsuarioLogado"] = v.Nome.ToString();
                         Session["Role"] = v.Roles.ToString();
                         Session["UserData"] = v;

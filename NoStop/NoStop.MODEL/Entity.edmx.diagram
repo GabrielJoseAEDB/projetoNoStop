@@ -4,18 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="342c6156b4564a2f94b98d642d6397da" Name="Diagram1" ZoomLevel="97">
-        <EntityTypeShape EntityType="noStopModel.Cliente" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="noStopModel.Estabelecimento" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="noStopModel.Setor" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="noStopModel.Usuario" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
-        <AssociationConnector Association="noStopModel.FK_Cliente_Estabelecimento" ManuallyRouted="false" />
-        <AssociationConnector Association="noStopModel.FK_Cliente_Usuario" ManuallyRouted="false" />
-        <AssociationConnector Association="noStopModel.FK_Setor_Estabelecimento" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="noStopModel.FilaData" Width="1.5" PointX="5.25" PointY="4" />
-        <AssociationConnector Association="noStopModel.FK_FilaCliente_Cliente" />
-        <AssociationConnector Association="noStopModel.FK_FilaData_Setor" />
-        </Diagram>
+      <Diagram DiagramId="f0077c4a0380477688ddc70f6d0d8188" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_A4A8B7_nostopModel.Cliente" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A4A8B7_nostopModel.Estabelecimento" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A4A8B7_nostopModel.FilaData" Width="1.5" PointX="7.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A4A8B7_nostopModel.Roles" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A4A8B7_nostopModel.Setor" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A4A8B7_nostopModel.Status" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A4A8B7_nostopModel.Usuario" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="DB_A4A8B7_nostopModel.FK_Cliente_Estabelecimento" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A4A8B7_nostopModel.FK_Cliente_Setor" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A4A8B7_nostopModel.FK_Cliente_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A4A8B7_nostopModel.FK_FilaData_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A4A8B7_nostopModel.FK_Setor_Estabelecimento" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A4A8B7_nostopModel.FK_FilaData_Setor" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A4A8B7_nostopModel.FK_Roles_Status" ManuallyRouted="false" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

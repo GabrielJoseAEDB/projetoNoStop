@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - NoStop</title>
@@ -35,6 +35,7 @@
                     {
                         <li>@Html.ActionLink("Meus estabelecimentos", "MeusEstabelecimentos", "Estabelecimentos")</li>
                         <li>@Html.ActionLink("Usuários", "Index", "Usuarios")</li>
+                        <li>@Html.ActionLink("Permissões", "Index", "Roles")</li>
                     }
                     else if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "user")
                     {
@@ -44,7 +45,7 @@
                     @if (Session["usuarioLogadoID"] != null)
                     {
                         string nome = (string)Session["nomeUsuarioLogado"];
-                        <li style="margin-left: 400px;">@Html.ActionLink("Sair", "Logout", "Home")</li>
+                        <li style="margin-left:200px">@Html.ActionLink("Sair", "Logout", "Home")</li>
                     }
                 </ul>
             </div>

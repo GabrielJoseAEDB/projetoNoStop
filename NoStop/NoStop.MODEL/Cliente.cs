@@ -27,6 +27,7 @@ namespace NoStop.MODEL
         public int IDEstabelecimento { get; set; }
     
         public virtual Estabelecimento Estabelecimento { get; set; }
+        public virtual Setor Setor { get; set; }
         public virtual Usuario Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FilaData> FilaData { get; set; }

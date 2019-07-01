@@ -12,23 +12,18 @@ namespace NoStop.MODEL
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuario
+    public partial class Status
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuario()
+        public Status()
         {
-            this.Cliente = new HashSet<Cliente>();
+            this.Roles = new HashSet<Roles>();
         }
     
         public int ID { get; set; }
         public string Nome { get; set; }
-        public string Senha { get; set; }
-        public string Email { get; set; }
-        public string CPF { get; set; }
-        public string Telefone { get; set; }
-        public string Roles { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cliente> Cliente { get; set; }
+        public virtual ICollection<Roles> Roles { get; set; }
     }
 }

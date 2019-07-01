@@ -158,6 +158,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\EstabelecimentosController.cs" />
     <Compile Include="Controllers\FilaDatasController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -235,6 +236,11 @@
     <Content Include="Views\FilaDatas\FilaCliente.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Erro.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

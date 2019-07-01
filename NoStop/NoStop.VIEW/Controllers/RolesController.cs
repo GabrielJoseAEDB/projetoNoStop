@@ -8,109 +8,114 @@ using System.Web;
 using System.Web.Mvc;
 using NoStop.MODEL;
 
-namespace NoStop.VIEW
+namespace NoStop.VIEW.Controllers
 {
-    public class UsuariosController : Controller
+    public class RolesController : Controller
     {
         private noStopEntities db = new noStopEntities();
 
-        // GET: Usuarios
+        // GET: Roles
         public ActionResult Index()
         {
-            return View(db.Usuario.ToList());
+            var roles = db.Roles.Include(r => r.Status);
+            return View(roles.ToList());
         }
 
-        // GET: Usuarios/Details/5
+        // GET: Roles/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
+            Roles roles = db.Roles.Find(id);
+            if (roles == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(roles);
         }
 
-        // GET: Usuarios/Create
+        // GET: Roles/Create
         public ActionResult Create()
         {
+            ViewBag.IDStatus = new SelectList(db.Status, "ID", "Nome");
             return View();
         }
 
-        // POST: Usuarios/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Roles/Create
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Senha,Email,CPF,Telefone,Roles")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "ID,Nome,IDStatus")] Roles roles)
         {
             if (ModelState.IsValid)
             {
-                db.Usuario.Add(usuario);
+                db.Roles.Add(roles);
                 db.SaveChanges();
-                return RedirectToAction("Login","Home");
+                return RedirectToAction("Index");
             }
 
-            return View(usuario);
+            ViewBag.IDStatus = new SelectList(db.Status, "ID", "Nome", roles.IDStatus);
+            return View(roles);
         }
 
-        // GET: Usuarios/Edit/5
+        // GET: Roles/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
+            Roles roles = db.Roles.Find(id);
+            if (roles == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            ViewBag.IDStatus = new SelectList(db.Status, "ID", "Nome", roles.IDStatus);
+            return View(roles);
         }
 
-        // POST: Usuarios/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Roles/Edit/5
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Senha,Email,CPF,Telefone,Roles")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "ID,Nome,IDStatus")] Roles roles)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(usuario).State = EntityState.Modified;
+                db.Entry(roles).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(usuario);
+            ViewBag.IDStatus = new SelectList(db.Status, "ID", "Nome", roles.IDStatus);
+            return View(roles);
         }
 
-        // GET: Usuarios/Delete/5
+        // GET: Roles/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
+            Roles roles = db.Roles.Find(id);
+            if (roles == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(roles);
         }
 
-        // POST: Usuarios/Delete/5
+        // POST: Roles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = db.Usuario.Find(id);
-            db.Usuario.Remove(usuario);
+            Roles roles = db.Roles.Find(id);
+            db.Roles.Remove(roles);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
