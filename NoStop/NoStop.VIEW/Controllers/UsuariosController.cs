@@ -58,6 +58,7 @@ namespace NoStop.VIEW
             return View(usuario);
         }
 
+        [Filters.AutorizaAdmin]
         // GET: Usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -89,6 +90,7 @@ namespace NoStop.VIEW
             return View(usuario);
         }
 
+        [Filters.AutorizaAdmin]
         // GET: Usuarios/Delete/5
         public ActionResult Delete(int? id)
         {

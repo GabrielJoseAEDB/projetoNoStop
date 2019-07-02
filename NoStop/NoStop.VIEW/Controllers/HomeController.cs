@@ -37,7 +37,6 @@ namespace NoStop.VIEW.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(Usuario u)
         {
-        // esta action trata o post (login)
             using (noStopEntities dc = new noStopEntities())
             {
                 var v = dc.Usuario.Where(a => a.Email.Equals(u.Email) && a.Senha.Equals(u.Senha)).FirstOrDefault();
