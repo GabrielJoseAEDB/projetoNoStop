@@ -94,6 +94,7 @@ namespace NoStop.VIEW
             }
             return View(vwModel);
         }
+        [Filters.AutorizaAdmin]
         // GET: Estabelecimentos/Details/5
         public ActionResult Details(int? id)
         {
@@ -109,7 +110,7 @@ namespace NoStop.VIEW
 
             return View(estabelecimento);
         }
-
+        [Filters.AutorizaAdmin]
         // GET: Estabelecimentos/Create
         public ActionResult Create()
         {
@@ -126,6 +127,7 @@ namespace NoStop.VIEW
         // POST: Estabelecimentos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Filters.AutorizaAdmin]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Nome,CNPJ,Endereco")] Estabelecimento estabelecimento)
@@ -139,7 +141,7 @@ namespace NoStop.VIEW
 
             return View(estabelecimento);
         }
-
+        [Filters.AutorizaAdmin]
         // GET: Estabelecimentos/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -154,7 +156,7 @@ namespace NoStop.VIEW
             }
             return View(estabelecimento);
         }
-
+        [Filters.AutorizaAdmin]
         // POST: Estabelecimentos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -170,7 +172,7 @@ namespace NoStop.VIEW
             }
             return View(estabelecimento);
         }
-
+        [Filters.AutorizaAdmin]
         // GET: Estabelecimentos/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -185,7 +187,7 @@ namespace NoStop.VIEW
             }
             return View(estabelecimento);
         }
-
+        [Filters.AutorizaAdmin]
         // POST: Estabelecimentos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

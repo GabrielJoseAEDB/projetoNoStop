@@ -93,7 +93,7 @@ namespace NoStop.VIEW
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome", setor.IDEstabelecimento);
             return View(setor);
         }
-
+        [Filters.AutorizaAdmin]
         // GET: Setores/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -108,7 +108,7 @@ namespace NoStop.VIEW
             }
             return View(setor);
         }
-
+        [Filters.AutorizaAdmin]
         // POST: Setores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

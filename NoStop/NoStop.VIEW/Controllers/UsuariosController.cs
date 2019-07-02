@@ -14,12 +14,14 @@ namespace NoStop.VIEW
     {
         private noStopEntities db = new noStopEntities();
 
+        [Filters.AutorizaAdmin]
         // GET: Usuarios
         public ActionResult Index()
         {
             return View(db.Usuario.ToList());
         }
 
+        [Filters.AutorizaAdmin]
         // GET: Usuarios/Details/5
         public ActionResult Details(int? id)
         {

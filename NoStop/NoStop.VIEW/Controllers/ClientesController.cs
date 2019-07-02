@@ -13,14 +13,14 @@ namespace NoStop.VIEW
     public class ClientesController : Controller
     {
         private noStopEntities db = new noStopEntities();
-
+        [Filters.AutorizaAdmin]
         // GET: Clientes
         public ActionResult Index()
         {
             var cliente = db.Cliente.Include(c => c.Estabelecimento).Include(c => c.Roles).Include(c => c.Usuario);
             return View(cliente.ToList());
         }
-
+        [Filters.AutorizaAdmin]
         // GET: Clientes/Details/5
         public ActionResult Details(int? id)
         {
@@ -62,7 +62,7 @@ namespace NoStop.VIEW
             ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome", cliente.IDUsuario);
             return View(cliente);
         }
-
+        [Filters.AutorizaAdmin]
         // GET: Clientes/Create
         public ActionResult Create()
         {
@@ -71,7 +71,7 @@ namespace NoStop.VIEW
             ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome");
             return View();
         }
-
+        [Filters.AutorizaAdmin]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Registro,IDUsuario,IDRole,IDEstabelecimento")] Cliente cliente)
@@ -88,7 +88,7 @@ namespace NoStop.VIEW
             ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome", cliente.IDUsuario);
             return View(cliente);
         }
-
+        [Filters.AutorizaAdmin]
         // GET: Clientes/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -106,7 +106,7 @@ namespace NoStop.VIEW
             ViewBag.IDUsuario = new SelectList(db.Usuario, "ID", "Nome", cliente.IDUsuario);
             return View(cliente);
         }
-
+        [Filters.AutorizaAdmin]
         // POST: Clientes/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -129,7 +129,7 @@ namespace NoStop.VIEW
             return RedirectToAction("ExibirClientes", "Estabelecimentos");
             
         }
-
+        [Filters.AutorizaAdmin]
         // GET: Clientes/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -144,7 +144,7 @@ namespace NoStop.VIEW
             }
             return View(cliente);
         }
-
+        [Filters.AutorizaAdmin]
         // POST: Clientes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -15,12 +15,13 @@ namespace NoStop.VIEW.Controllers
         private noStopEntities db = new noStopEntities();
 
         // GET: Roles
+        [Filters.AutorizaAdmin]
         public ActionResult Index()
         {
             var roles = db.Roles.Include(r => r.Status);
             return View(roles.ToList());
         }
-
+        [Filters.AutorizaAdmin]
         // GET: Roles/Details/5
         public ActionResult Details(int? id)
         {
@@ -35,14 +36,14 @@ namespace NoStop.VIEW.Controllers
             }
             return View(roles);
         }
-
+        [Filters.AutorizaAdmin]
         // GET: Roles/Create
         public ActionResult Create()
         {
             ViewBag.IDStatus = new SelectList(db.Status, "ID", "Nome");
             return View();
         }
-
+        [Filters.AutorizaAdmin]
         // POST: Roles/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -60,7 +61,7 @@ namespace NoStop.VIEW.Controllers
             ViewBag.IDStatus = new SelectList(db.Status, "ID", "Nome", roles.IDStatus);
             return View(roles);
         }
-
+        [Filters.AutorizaAdmin]
         // GET: Roles/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -76,7 +77,7 @@ namespace NoStop.VIEW.Controllers
             ViewBag.IDStatus = new SelectList(db.Status, "ID", "Nome", roles.IDStatus);
             return View(roles);
         }
-
+        [Filters.AutorizaAdmin]
         // POST: Roles/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -93,7 +94,7 @@ namespace NoStop.VIEW.Controllers
             ViewBag.IDStatus = new SelectList(db.Status, "ID", "Nome", roles.IDStatus);
             return View(roles);
         }
-
+        [Filters.AutorizaAdmin]
         // GET: Roles/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -108,7 +109,7 @@ namespace NoStop.VIEW.Controllers
             }
             return View(roles);
         }
-
+        [Filters.AutorizaAdmin]
         // POST: Roles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

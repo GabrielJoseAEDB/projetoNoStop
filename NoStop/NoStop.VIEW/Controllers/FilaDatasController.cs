@@ -16,6 +16,7 @@ namespace NoStop.VIEW
         private noStopEntities db = new noStopEntities();
 
         // GET: FilaDatas
+        [Filters.AutorizaAdmin]
         public ActionResult Index()
         {
             var filaData = db.FilaData.Include(f => f.Cliente).Include(f => f.Setor);
@@ -99,6 +100,7 @@ namespace NoStop.VIEW
 
             return RedirectToAction("Index");
         }
+        [Filters.AutorizaAdmin]
         // GET: FilaDatas/Details/5
         public ActionResult Details(int? id)
         {
@@ -113,7 +115,7 @@ namespace NoStop.VIEW
             }
             return View(filaData);
         }
-
+        [Filters.AutorizaAdmin]
         // GET: FilaDatas/Create
         public ActionResult Create()
         {
@@ -121,7 +123,7 @@ namespace NoStop.VIEW
             ViewBag.IDSetor = new SelectList(db.Setor, "ID", "Nome");
             return View();
         }
-
+        [Filters.AutorizaAdmin]
         // POST: FilaDatas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -140,7 +142,7 @@ namespace NoStop.VIEW
             ViewBag.IDSetor = new SelectList(db.Setor, "ID", "Nome", filaData.IDSetor);
             return View(filaData);
         }
-        
+        [Filters.AutorizaAdmin]
         // GET: FilaDatas/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -157,7 +159,7 @@ namespace NoStop.VIEW
             ViewBag.IDSetor = new SelectList(db.Setor, "ID", "Nome", filaData.IDSetor);
             return View(filaData);
         }
-
+        [Filters.AutorizaAdmin]
         // POST: FilaDatas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -175,7 +177,7 @@ namespace NoStop.VIEW
             ViewBag.IDSetor = new SelectList(db.Setor, "ID", "Nome", filaData.IDSetor);
             return View(filaData);
         }
-
+        [Filters.AutorizaAdmin]
         // GET: FilaDatas/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -190,7 +192,7 @@ namespace NoStop.VIEW
             }
             return View(filaData);
         }
-
+        [Filters.AutorizaAdmin]
         // POST: FilaDatas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
