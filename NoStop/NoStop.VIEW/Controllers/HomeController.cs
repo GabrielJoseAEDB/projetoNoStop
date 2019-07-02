@@ -37,21 +37,17 @@ namespace NoStop.VIEW.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(Usuario u)
         {
-            // esta action trata o post (login)
-            if (ModelState.IsValid) //verifica se é válido
+            using (noStopEntities dc = new noStopEntities())
             {
-                using (noStopEntities dc = new noStopEntities())
+                var v = dc.Usuario.Where(a => a.Email.Equals(u.Email) && a.Senha.Equals(u.Senha)).FirstOrDefault();
+                if (v != null)
                 {
-                    var v = dc.Usuario.Where(a => a.Email.Equals(u.Email) && a.Senha.Equals(u.Senha)).FirstOrDefault();
-                    if (v != null)
-                    {
-                        Session["usuarioLogadoID"] = v.ID.ToString();
-                        Session["ID"] = v.ID;
-                        Session["nomeUsuarioLogado"] = v.Nome.ToString();
-                        Session["Role"] = v.Roles.ToString();
-                        Session["UserData"] = v;
-                        return RedirectToAction("Index");
-                    }
+                    Session["usuarioLogadoID"] = v.ID.ToString();
+                    Session["ID"] = v.ID;
+                    Session["nomeUsuarioLogado"] = v.Nome.ToString();
+                    Session["Role"] = v.Roles.ToString();
+                    Session["UserData"] = v;
+                    return RedirectToAction("Index");
                 }
             }
             return View(u);

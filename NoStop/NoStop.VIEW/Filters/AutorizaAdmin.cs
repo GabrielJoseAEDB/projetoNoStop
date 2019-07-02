@@ -10,9 +10,7 @@ namespace NoStop.VIEW.Filters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-#pragma warning disable CS0252 // Possível comparação de referência inesperada; o lado esquerdo precisa de conversão
-            if (HttpContext.Current.Session["Role"] == null || HttpContext.Current.Session["Role"] != "admin")
-#pragma warning restore CS0252 // Possível comparação de referência inesperada; o lado esquerdo precisa de conversão
+            if (HttpContext.Current.Session["Role"] == null)
             {
                 filterContext.Result = new System.Web.Mvc.RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary
                 {
@@ -20,6 +18,15 @@ namespace NoStop.VIEW.Filters
                     {"Action","Erro"}
                 });
             }
+            else if (Convert.ToString(HttpContext.Current.Session["Role"]) == "user")
+            {
+                filterContext.Result = new System.Web.Mvc.RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary
+                {
+                    {"Controller","Home"},
+                    {"Action","Erro"}
+                });
+            }
+            base.OnActionExecuting(filterContext);
         }
     }
 }
