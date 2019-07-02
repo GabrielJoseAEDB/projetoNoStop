@@ -4,12 +4,12 @@
     ViewBag.Title = "ExibirClientes";
 }
 
-<h2>Index</h2>
+<h2>Meus Estabelecimentos</h2>
 
 <p>
     @if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "admin")
     {
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "Create", new { @class = "btn btn-success" })
     }
 </p>
 <table class="table">
@@ -34,11 +34,11 @@
         <td>
             @if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "admin")
             {
-                @Html.ActionLink("Editar o estabelecimento", "Edit", new { id = item.idEstabelecimento }) <span>|</span>
-                @Html.ActionLink("Editar acessos", "ExibirClientes", new { idEstab = item.idEstabelecimento }) <span>|</span>
+            @Html.ActionLink("Editar o estabelecimento", "Edit", new { id = item.idEstabelecimento }, new { @class = "btn btn-primary" }) <span> | </span>
+            @Html.ActionLink("Editar acessos", "ExibirClientes", new { idEstab = item.idEstabelecimento }, new{@class = "btn btn-success"}) <span> | </span> 
             }
-            @Html.ActionLink("Details", "Details", new { id = item.idEstabelecimento }) |
-            @Html.ActionLink("Setores", "Index", "Setores", new { idEstab = item.idEstabelecimento }, null) |
+            @Html.ActionLink("Details", "Details", new { id = item.idEstabelecimento }, new { @class = "btn btn-info" }) <span> | </span> 
+            @Html.ActionLink("Setores", "Index", "Setores", new { idEstab = item.idEstabelecimento }, new { @class = "btn btn-warning" }) 
         </td>
     </tr>
 }

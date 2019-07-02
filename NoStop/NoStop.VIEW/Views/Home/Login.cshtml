@@ -2,7 +2,9 @@
 @{
     ViewBag.Title = "Login";
 }
-<h2>Login</h2>
+
+<h2 class="text-center">Bem vindo!</h2>
+<h4 class="text-center">Por favor, digite o seu Email e senha.</h4>
 @using (Html.BeginForm("Login", "Home", FormMethod.Post))
 {
     //cria a tag do formulário
@@ -14,7 +16,7 @@
             @ViewBag.Message
         </div>
     }
-    <table>
+    <table style="margin-left:40%;">
         <tr>
             <td>@Html.LabelFor(a => a.Email)</td>
             <td>@Html.TextBoxFor(a => a.Email)</td>
@@ -26,10 +28,11 @@
             <td> @Html.ValidationMessageFor(a => a.Senha) </td>
         </tr>
         <tr>
+            
             <td></td>
             <td>
                 <input type="submit" value="Login" />
-                <p>Não possui login? cadastre-se @Html.ActionLink("Cadastrar","Create","Usuarios")</p>
+                <p>Não possui login? cadastre-se @Html.ActionLink("Cadastrar", "Create", "Usuarios")</p>
             </td>
             <td></td>
         </tr>

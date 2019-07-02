@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Setores</h2>
  @if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "admin")
  { 
 <p>
@@ -31,13 +31,13 @@
             @Html.DisplayFor(modelItem => item.Estabelecimento.Nome)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Entrar na fila", "EntraNaFila", "FilaDatas", new { idSetor = item.ID, idUsuario = Session["usuarioLogadoID"] }, null) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Entrar na fila", "EntraNaFila", "FilaDatas", new { idSetor = item.ID, idUsuario = Session["usuarioLogadoID"] }, new { @class = "btn btn-success" }) |
             @if (Session["usuarioLogadoID"] != null && Session["Role"].ToString() == "admin")
             {
-                @Html.ActionLink("Atender a fila", "FilaAtendente", "FilaDatas", new { idSetor = item.ID }, null) <span>|</span>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) <span>|</span>
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID }) <span>|</span>
+                @Html.ActionLink("Atender a fila", "FilaAtendente", "FilaDatas", new { idSetor = item.ID }, new { @class = "btn btn-warning" }) <span>|</span>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary" }) <span>|</span>
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" }) 
             }
 
         </td>
