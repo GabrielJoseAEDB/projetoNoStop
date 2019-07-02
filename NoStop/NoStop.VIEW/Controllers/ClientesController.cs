@@ -54,7 +54,7 @@ namespace NoStop.VIEW
                 cliente.IDRole = 1;
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Setores", new { idEstab = cliente.IDEstabelecimento });
             }
 
             ViewBag.IDEstabelecimento = new SelectList(db.Estabelecimento, "ID", "Nome", cliente.IDEstabelecimento);

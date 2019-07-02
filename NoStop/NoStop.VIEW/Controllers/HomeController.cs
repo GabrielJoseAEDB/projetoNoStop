@@ -47,7 +47,12 @@ namespace NoStop.VIEW.Controllers
                     Session["nomeUsuarioLogado"] = v.Nome.ToString();
                     Session["Role"] = v.Roles.ToString();
                     Session["UserData"] = v;
+                    ViewBag.Message = null;
                     return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.Message = "Email ou senha incorreto(s)";
                 }
             }
             return View(u);

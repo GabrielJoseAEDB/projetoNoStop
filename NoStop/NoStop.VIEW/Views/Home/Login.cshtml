@@ -1,6 +1,7 @@
 ﻿@model NoStop.MODEL.Usuario
 @{
     ViewBag.Title = "Login";
+    var msg = ViewBag.msg;
 }
 
 <h2 class="text-center">Bem vindo!</h2>
@@ -16,12 +17,13 @@
             @ViewBag.Message
         </div>
     }
-    <table style="margin-left:40%;">
+    <table style="margin-left:30%;">
         <tr>
             <td>@Html.LabelFor(a => a.Email)</td>
             <td>@Html.TextBoxFor(a => a.Email)</td>
             <td>@Html.ValidationMessageFor(a => a.Email)</td>
         </tr>
+        <tr><br></tr>
         <tr>
             <td> @Html.LabelFor(a => a.Senha)</td>
             <td> @Html.PasswordFor(a => a.Senha) </td>

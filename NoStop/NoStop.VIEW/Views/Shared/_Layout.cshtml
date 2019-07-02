@@ -9,7 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#000000009">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -69,7 +69,7 @@
                     @if (Session["usuarioLogadoID"] != null)
                     {
                         string nome = (string)Session["nomeUsuarioLogado"];
-                        <li style="margin-left:200px">@Html.ActionLink("Sair", "Logout", "Home")</li>
+                        <li style="margin-left:400px">@Html.ActionLink("Sair", "Logout", "Home")</li>
                     }
                 </ul>
             </div>
